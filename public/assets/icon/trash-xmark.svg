@@ -1,0 +1,7 @@
+git init
+git add .
+git commit -m "initial commit"
+git remote add oigin https
+git checkout (opsional bro)
+git pull 
+git push origin branch
