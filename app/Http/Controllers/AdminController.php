@@ -123,6 +123,16 @@ class AdminController extends Controller
         $comen = Comment::with('users')->where('user_id',$user->id)->get();
         return view("admin.users-info", compact("title", "bg","user","post","album","comen"));
     }
+
+    public function deleteReport($id){
+        $report = Report::find($id);
+        $report->delete();
+        return response()->json([
+            "status"=> 200,
+            "message"=> "berhasil dihapus"
+        ]);
+    }
+
     public function logout()
     {
         Auth::logout();

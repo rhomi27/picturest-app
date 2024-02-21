@@ -88,6 +88,7 @@ Route::middleware(['IsAdmin'])->group(function () {
     Route::get('/detail-report/{id}', [AdminController::class,'detailReport'])->name('detail.report');
     Route::get('/users', [AdminController::class,'showUser'])->name('users');
     Route::get('/users-info/{id}', [AdminController::class,'usersInfo'])->name('users.info');
+    Route::get('/delete-report/{id}', [AdminController::class,'deleteReport'])->name('delete.report');
 
     Route::post('/logout-admin', [AdminController::class,'logout'])->name('logout.admin');
     Route::post('/blokir/{id}', [AdminController::class,'blockPost'])->name('block');

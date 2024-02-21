@@ -27,7 +27,7 @@
                     </thead>
                     <tbody>
                         @foreach ($data as $item)
-                            <tr class="border-b-2">
+                            <tr id="report-{{ $item->id }}" class="border-b-2">
                                 <td class="px-6 py-4 text-xs whitespace-nowrap">{{ $item->users->username }}</td>
                                 <td class="px-6 py-4 text-xs whitespace-nowrap">{{ $item->alasan }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap"><img class="items-center h-16 w-16 object-contain"
@@ -36,7 +36,8 @@
                                 <td class="px-6 py-4 text-xs whitespace-nowrap">
                                     <a href="/detail-report/{{ $item->id }}"
                                         class="text-indigo-600 hover:text-indigo-900 mr-2">Cek</a>
-                                    <button class="text-red-600 hover:text-red-900">Hapus</button>
+                                    <button data-report-id="{{ $item->id }}"
+                                        class="delete-btn text-red-600 hover:text-red-900">Hapus</button>
                                 </td>
                             </tr>
                         @endforeach
@@ -46,4 +47,36 @@
         </div>
 
     </div>
+@endsection
+@section('script')
+    <script>
+        $('.delete-btn').click(function() {
+            const id = $(this).data('report-id')
+            const delUrl = `/delete-report/${id}`
+            Swal.fire({
+                title: "kamu yakin?",
+                text: `akan menghapus id ${id}`,
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: delUrl,
+                        type: 'get',
+                        success: function(res){
+                            $(`#report-${id}`).hide('slow');
+                        }
+                    })
+                    // Swal.fire({
+                    //   title: "Deleted!",
+                    //   text: "Your file has been deleted.",
+                    //   icon: "success"
+                    // });
+                }
+            });
+        })
+    </script>
 @endsection
