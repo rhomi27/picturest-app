@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Post;
 use App\Models\User;
+use App\Models\Album;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -33,5 +34,6 @@ class DatabaseSeeder extends Seeder
         // User::create($data);
 
         Post::factory(50)->create();
+        Album::factory(20)->create();
     }
 }

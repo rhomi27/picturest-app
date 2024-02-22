@@ -71,6 +71,6 @@
                 }
 
             })
-        })
+        });
     </script>
 @endsection

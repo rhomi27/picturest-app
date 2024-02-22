@@ -26,10 +26,39 @@
             <div id="album" class="columns-1 sm:columns-2 lg:columns-3 gap-2 mb-5">
 
             </div>
+            <div class="loader flex justify-center items-center">
+                <img class="w-8 h-8 hidden" src="assets/img/loading.gif" alt="hehe">
+            </div>
         </div>
     </section>
 @endsection
 @section('script')
+    <script>
+        $(document).ready(function() {
+            $(document).on('keyup', function(e) {
+                e.preventDefault();
+                let search_string = $("#search-nav").val();
+                $.ajax({
+                    url: "{{ route('search.album') }}",
+                    method: "get",
+                    data: {
+                        search_string: search_string
+                    },
+                    beforeSend: function() {
+                        $('.loader').show();
+                    },
+                    success: function(res) {
+                        $('#album').html(res);
+                        $('.loader').html("tidak ada data lainnya");
+                        if (res.status == 400) {
+                            $('.loader').html(res.pesan);
+                        }
+                    }
+
+                })
+            });
+        })
+    </script>
     <script>
         function read() {
             $.get("{{ route('read.album') }}", {}, function(data) {

@@ -155,6 +155,27 @@ class AlbumController extends Controller
 
         }
     }
+    
+
+    public function searchAlbum(Request $request){
+        $album = Album::where('user_id',auth()->id())
+        ->where(function ($query) use ($request){
+        $query->where("nama", "like", "%" . $request->search_string . "%")
+        ->orWhere("deskripsi","like", "%" . $request->search_string . "%");
+        })
+        ->orderBy('id', 'desc')
+        ->get();
+
+        if ($album->count() >= 1) {
+            return view('page.album.read', compact('album'));
+        } else if ($album->count() <= 1) {
+            return response()->json([
+                'status' => 400,
+                'pesan' => "Album tidak ditemukan"
+            ]);
+        }
+    }
+
 
     public function delete($id)
     {

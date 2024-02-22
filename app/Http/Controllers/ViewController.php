@@ -34,11 +34,15 @@ class ViewController extends Controller
 
     public function searchImage(Request $request)
     {
-        $post = Post::where("judul", "like", "%" . $request->search_string . "%")
-            ->orWhere("deskripsi", "like", "%" . $request->search_string . "%")
-            ->orWhere("tag", "like", "%" . $request->search_string . "%")
+        $post = Post::where('status', 'aktif')
+            ->where(function ($query) use ($request) {
+                $query->where("judul", "like", "%" . $request->search_string . "%")
+                    ->orWhere("deskripsi", "like", "%" . $request->search_string . "%")
+                    ->orWhere("tag", "like", "%" . $request->search_string . "%");
+            })
             ->orderBy('id', 'desc')
             ->paginate(16);
+
 
         if ($post->count() >= 1) {
             return view('page.posts.read', compact('post'));
@@ -105,18 +109,19 @@ class ViewController extends Controller
         $userId = auth()->user()->id;
         Notifikasi::where('to', $userId)->update(['status' => 'read']);
         return response()->json([
-            'status'=> 200,
-            'message'=> 'Semua notif telah dibaca'
-        ]) ;
+            'status' => 200,
+            'message' => 'Semua notif telah dibaca'
+        ]);
     }
 
-    public function deleteAll(){
+    public function deleteAll()
+    {
         $userId = auth()->user()->id;
         Notifikasi::where('to', $userId)->delete();
         return response()->json([
-            'status'=> 200,
-            'message'=> 'Semua notif telah di hapus'
-        ]) ;
+            'status' => 200,
+            'message' => 'Semua notif telah di hapus'
+        ]);
     }
 
 
