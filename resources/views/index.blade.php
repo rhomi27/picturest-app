@@ -206,6 +206,7 @@
                             showMessage('success', res.messages);
                             $("#daftarForm")[0].reset();
                             removeValidasiClass("#daftarForm");
+                            $('#loginTab').click();
                         }
                     },
                     error: function(err) {

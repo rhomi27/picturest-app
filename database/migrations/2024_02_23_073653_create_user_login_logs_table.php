@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('user_login_logs', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->references('id')->on('users');
-            $table->dateTime('login_time');
+            $table->timestamp('login_time');
             $table->text('ip_address');
             $table->timestamps();
         });

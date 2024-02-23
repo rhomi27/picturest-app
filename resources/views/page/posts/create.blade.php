@@ -9,7 +9,7 @@
                 class="grid grid-cols-1 md:grid-cols-2 gap-4 gap-x-5 mb-5 p-3 px-5">
                 <div class="flex items-center justify-center w-full h-full mt-1 relative">
                     <label for="file"
-                        class="flex flex-col items-center p-3 justify-center w-full h-64 border-2 border-sky-300 border-dashed rounded-md cursor-pointer bg-white bg-opacity-50 dark:bg-gray-700 hover:bg-opacity-70 hover:bg-white dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600 z-10">
+                        class="flex flex-col items-center p-3 justify-center w-full h-64 border-2 rounded-md cursor-pointer bg-white bg-opacity-50 dark:bg-gray-700 hover:bg-opacity-70 hover:bg-white dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600 z-10">
                         <div class="flex flex-col items-center justify-center pt-5 pb-6">
                             <svg class="w-8 h-8 mb-4 text-black dark:text-gray-400" aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
@@ -23,7 +23,7 @@
                         </div>
                         <input type="file" id="file" name="file" class="hidden" />
                     </label>
-                    <img id="previewImage" class="w-full h-64 object-cover z-0 absolute rounded-md"
+                    <img id="previewImage" class="w-full h-64 object-contain z-0 absolute rounded-md"
                         src="assets/img/folder.jpg" alt="">
                 </div>
                 <div class="w-full h-full">
@@ -230,6 +230,20 @@
             }
         }
         $(document).ready(function() {
+
+            $("#wallpaper").change(function() {
+                if (this.files && this.files[0]) {
+                    let reader = new FileReader();
+
+                    reader.onload = (e) => {
+                        $("#previewWallpaper").attr('src', e.target.result);
+                    }
+                    reader.readAsDataURL(this.files[0]);
+                } else {
+                    // Kembalikan gambar ke default di sini
+                    $("#previewWallpaper").attr('src', 'assets/img/folder.jpg');
+                }
+            });
 
             $('#albumForm').submit(function(e) {
                 e.preventDefault();
