@@ -22,8 +22,8 @@ use App\Http\Controllers\CommentController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', [ViewController::class, 'index']);
 Route::middleware(['isTamu'])->group(function () {
+    Route::get('/', [ViewController::class, 'index']);
     Route::get('/search', [ViewController::class, 'search'])->name('view.tamu');
     Route::get('/detail-tamu/{id}', [ViewController::class, 'detail'])->name('detail.tamu');
     Route::get('/comen-read-tamu/{id}', [CommentController::class, 'read']);

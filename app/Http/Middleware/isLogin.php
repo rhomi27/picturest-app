@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\UserLoginLog;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,10 +17,12 @@ class isLogin
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
     public function handle(Request $request, Closure $next)
-    {   
-        if(Auth::check()){
+    {
+        if (Auth::check()) {
+
             return $next($request);
+
         }
-        return redirect("/")->with("error","Maaf anda harus login terlebih dahulu");
+        return redirect("/")->with("error", "Maaf anda harus login terlebih dahulu");
     }
 }

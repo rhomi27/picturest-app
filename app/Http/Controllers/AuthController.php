@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\User;
+use App\Models\UserLoginLog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -79,6 +81,11 @@ class AuthController extends Controller
             
             if (Auth::attempt($dataLogin)) {
                 $request->session()->regenerate();
+                UserLoginLog::create([
+                    "user_id" => Auth::id(),
+                    "login_time" =>  Carbon::now()->locale("id"),
+                    "ip_address" => $request->ip(),
+                ]);
                 return response()->json([
                     'status' => 200,
                     'messages' => 'Login berhasil',

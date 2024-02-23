@@ -15,7 +15,7 @@ class UserController extends Controller
     //
     public function read($id)
     {
-        $user = User::find($id);    
+        $user = User::find($id);
         $countPost = Post::where('user_id', $id)->count();
         $follower = $user->followers()->get();
         $following = $user->following()->get();
@@ -23,7 +23,7 @@ class UserController extends Controller
     }
     public function reading()
     {
-        $user = auth()->user(); 
+        $user = auth()->user();
         $countPost = Post::where('user_id', $user->id)->count();
         $follower = $user->followers()->get();
         $following = $user->following()->get();
@@ -32,7 +32,7 @@ class UserController extends Controller
 
     public function profilUser(Request $request, $id)
     {
-        
+
         if ($id == Auth::id()) {
             return redirect('/profil');
         }
@@ -42,7 +42,7 @@ class UserController extends Controller
         $user = User::find($id);
         $follower = $user->followers()->get();
         $following = $user->following()->get();
-        $post = Post::where('user_id', $id)->where('status','aktif')->latest()->paginate(12);
+        $post = Post::where('user_id', $id)->where('status', 'aktif')->latest()->paginate(12);
         $countPost = Post::where('user_id', $id)->count();
         $title = "Profil | $user->username";
         $data = '';
@@ -65,7 +65,7 @@ class UserController extends Controller
         $user = auth()->user();
         $follower = $user->followers()->get();
         $following = $user->following()->get();
-        $post = Post::where('user_id', auth()->user()->id)->where('status','aktif')->latest()->paginate(12);
+        $post = Post::where('user_id', auth()->user()->id)->where('status', 'aktif')->latest()->paginate(12);
         $data = '';
         if ($request->ajax()) {
             $data .= view("page.users.data-user.post-user", compact("post"));
@@ -130,35 +130,37 @@ class UserController extends Controller
         }
     }
 
-    public function setAcount(Request $request){
+    public function setAcount(Request $request)
+    {
         $title = 'Pengaturan akun';
         $bg = 'bg-white';
         $user = auth()->user();
-        return view('page.users.akun', compact('user','title','bg'));
+        return view('page.users.akun', compact('user', 'title', 'bg'));
     }
 
-    public function updateAcount(Request $request){
-        $validator = Validator::make($request->all(),[
+    public function updateAcount(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
             'email' => 'required|email:filter',
-            'old_password'=> 'required|min:6',
-            'new_password'=> 'required|min:6',
+            'old_password' => 'required|min:6',
+            'new_password' => 'required|min:6',
             'confirm_password' => 'required|same:new_password',
-        ],[
-            'email.required'=> 'kolom ini harus diisi',
-            'email.email'=> 'format email harus benar',
-            'old_password.required'=> 'kolom ini harus diisi',
-            'old_password.min'=> 'harus minimal memilliki 6 karakter',
-            'new_password.required'=> 'kolom ini harus diisi',
-            'new_password.min'=> 'harus minimal memilliki 6 karakter',
-            'confirm_password.required'=> 'kolom ini harus diisi',
-            'confirm_password.same'=> 'password tidak sama dengan sebelumnya',
+        ], [
+            'email.required' => 'kolom ini harus diisi',
+            'email.email' => 'format email harus benar',
+            'old_password.required' => 'kolom ini harus diisi',
+            'old_password.min' => 'harus minimal memilliki 6 karakter',
+            'new_password.required' => 'kolom ini harus diisi',
+            'new_password.min' => 'harus minimal memilliki 6 karakter',
+            'confirm_password.required' => 'kolom ini harus diisi',
+            'confirm_password.same' => 'password tidak sama dengan sebelumnya',
         ]);
-        if($validator->fails()){
+        if ($validator->fails()) {
             return response()->json([
-                'status'=> 400,
-                'errors'=> $validator->errors(),
+                'status' => 400,
+                'errors' => $validator->errors(),
             ]);
-        } else{
+        } else {
             $user = auth()->user();
             if (!Hash::check($request->old_password, $user->password)) {
                 return response()->json([
@@ -171,8 +173,8 @@ class UserController extends Controller
                     'password' => Hash::make($request->new_password),
                 ]);
                 return response()->json([
-                    'status'=> 200,
-                    'message'=> 'berhasi diperbarui',
+                    'status' => 200,
+                    'message' => 'berhasi diperbarui',
                 ]);
             }
         }

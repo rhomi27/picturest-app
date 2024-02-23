@@ -1,7 +1,12 @@
 git init
 git add .
 git commit -m "initial commit"
-git remote add oigin https
+git remote add origin https
 git checkout (opsional bro)
 git pull 
 git push origin branch
+
+
+git add .
+git commit -m "pesan"
+git push origin branch 

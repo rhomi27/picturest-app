@@ -94,7 +94,7 @@ class AlbumController extends Controller
             "nama" => $album->nama,
             "deskripsi" => $album->deskripsi,
             "wallpaper" => asset('Album/' . $album->wallpaper),
-        ]);
+        ]); 
     }
 
     public function update(Request $request, $id)

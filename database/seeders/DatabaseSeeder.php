@@ -20,20 +20,20 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
-        // $data = [
-        // 'username' => 'admin',
-        // 'alamat' => 'banjar',
-        // 'nama_lengkap' => 'admin slepet',
-        // 'pictures'=> 'user.jpg',
-        // 'bio' => 'no bio yet',
-        // 'jenis_kelamin' => 'Pria',
-        // 'role' => 'admin',
-        // 'email' => 'admin@gmail.com',
-        // 'password' => bcrypt('admin123'),
-        // ];
-        // User::create($data);
+        $data = [
+        'username' => 'admin',
+        'alamat' => 'banjar',
+        'nama_lengkap' => 'admin slepet',
+        'pictures'=> 'user.jpg',
+        'bio' => 'no bio yet',
+        'jenis_kelamin' => 'Pria',
+        'role' => 'admin',
+        'email' => 'admin@gmail.com',
+        'password' => bcrypt('admin123'),
+        ];
+        User::create($data);
 
-        Post::factory(50)->create();
-        Album::factory(20)->create();
+        // Post::factory(50)->create();
+        // Album::factory(20)->create();
     }
 }

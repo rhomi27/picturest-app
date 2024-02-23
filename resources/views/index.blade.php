@@ -152,7 +152,7 @@
                 $("#" + field).addClass("border-red-600").removeClass("border-green-600");
                 errorElement.text(message);
                 // $(errorElement).append(message);
-            }
+            } 
         }
 
         function removeValidasiClass(form) {
@@ -273,6 +273,6 @@
                     },
                 })
             });
-        })
+        }) 
     </script>
 @endsection
