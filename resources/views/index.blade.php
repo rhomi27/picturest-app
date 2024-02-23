@@ -152,7 +152,7 @@
                 $("#" + field).addClass("border-red-600").removeClass("border-green-600");
                 errorElement.text(message);
                 // $(errorElement).append(message);
-            } 
+            }
         }
 
         function removeValidasiClass(form) {
@@ -243,10 +243,18 @@
         $(document).ready(function() {
             $("#loginForm").submit(function(e) {
                 e.preventDefault();
+                var timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+                // Tambahkan zona waktu ke data yang akan dikirimkan ke server
+                var formData = $(this).serializeArray();
+                formData.push({
+                    name: "timeZone",
+                    value: timeZone
+                });
+
                 $.ajax({
                     url: "{{ route('auth.login') }}",
                     type: 'post',
-                    data: $(this).serialize(),
+                    data: formData,
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
@@ -274,6 +282,6 @@
                     },
                 })
             });
-        }) 
+        })
     </script>
 @endsection

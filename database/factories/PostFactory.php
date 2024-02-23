@@ -37,7 +37,7 @@ class PostFactory extends Factory
         shuffle($file);
         $result = $file[0];
         return [
-            "user_id" => mt_rand(2,4),
+            "user_id" => mt_rand(2,6),
             "judul" => $this->faker->sentence(mt_rand(1, 4)),
             "deskripsi" => $this->faker->paragraph(),
             "tag" => $this->faker->words(2, true), // Menghasilkan dua kata acak

@@ -46,6 +46,35 @@
                 </div>
             </form>
         </div>
+        <h1 class="text-center mt-10 bg-blue-500 text-white rounded-lg p-1 ">Aktivitas Login</h1>
+        <div class="overflow-x-auto mt-5">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead>
+                    <tr>
+                        <th scope="col"
+                            class="px-6 py-3 bg-gray-100 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            No</th>
+                        <th scope="col"
+                            class="px-6 py-3 bg-gray-100 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Waktu Login</th>
+                        <th scope="col"
+                            class="px-6 py-3 bg-gray-100 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Ip Address</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                    @foreach ($aktivitas_log as $item)
+                        <tr>
+                            <td class="px-6 py-4 text-xs whitespace-nowrap">{{ $loop->iteration }}</td>
+                            <td class="px-6 py-4 text-xs whitespace-nowrap">
+                                {{ \Carbon\Carbon::parse($item->login_time)->format('Y-F-l H:i') }}
+                            </td>
+                            <td class="px-6 py-4 text-xs whitespace-nowrap">{{ $item->ip_address }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
     </div>
 @endsection
 @section('script')
@@ -80,7 +109,7 @@
         }
 
         function resetForm(fieldName) {
-            var form = $('#update-acount')[0]; 
+            var form = $('#update-acount')[0];
             var savedValue = form[fieldName].value;
             form.reset();
             form[fieldName].value = savedValue;

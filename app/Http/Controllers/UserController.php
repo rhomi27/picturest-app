@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use App\Models\User;
+use App\Models\UserLoginLog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
@@ -135,7 +136,8 @@ class UserController extends Controller
         $title = 'Pengaturan akun';
         $bg = 'bg-white';
         $user = auth()->user();
-        return view('page.users.akun', compact('user', 'title', 'bg'));
+        $aktivitas_log = UserLoginLog::where('user_id', $user->id)->get();
+        return view('page.users.akun', compact('user', 'title', 'bg','aktivitas_log'));
     }
 
     public function updateAcount(Request $request)

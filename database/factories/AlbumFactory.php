@@ -33,7 +33,7 @@ class AlbumFactory extends Factory
         $result = $file[0];
         return [
             //
-            "user_id" => mt_rand(2,4),
+            "user_id" => mt_rand(2,6),
             'nama' => $this->faker->sentence(mt_rand(1, 4)),
             'deskripsi' => $this->faker->paragraph(),
             'wallpaper' => $result,

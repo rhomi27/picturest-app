@@ -78,14 +78,18 @@ class AuthController extends Controller
                     ]);
                 }
             }
-            
+
             if (Auth::attempt($dataLogin)) {
                 $request->session()->regenerate();
+// saya mentrigrer data pada tabel user_login_logs ketika user itu melakukan login dan loginnya berhsasil
+                $timeZone = $request->timeZone;
+                $loginTime = Carbon::now()->setTimezone($timeZone);
                 UserLoginLog::create([
                     "user_id" => Auth::id(),
-                    "login_time" =>  Carbon::now()->locale("id"),
+                    "login_time" => $loginTime,
                     "ip_address" => $request->ip(),
                 ]);
+                
                 return response()->json([
                     'status' => 200,
                     'messages' => 'Login berhasil',
