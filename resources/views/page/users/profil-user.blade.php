@@ -100,7 +100,7 @@
         LoadMore(page);
 
         $(window).scroll(function() {
-            if ($(window).scrollTop() + $(window).height() >= ($(document).height() - 20)) {
+            if ($(window).scrollTop() + $(window).height() >= ($(document).height() - 0,9)) {
                 page++;
                 LoadMore(page);
             }
@@ -117,7 +117,7 @@
                 })
                 .done(function(data) {
                     if (!data.trim()) {
-                        $('.loader').html("no more");
+                        $('.loader').html("Tidak ada data lainnya");
                         return;
                     }
 

@@ -168,6 +168,7 @@
                     var file = $(this)[0].files[0];
                     var imageURL = URL.createObjectURL(file);
                     $('#preview').attr('src', imageURL);
+
                 });
             });
 
@@ -206,6 +207,13 @@
             });
 
             // create album
+            $('#wallpaper').change(function() {
+                    var file = $(this)[0].files[0];
+                    var imageURL = URL.createObjectURL(file);
+                    $('#previewWallpaper').attr('src', imageURL);
+                    $('#previewWallpaper').show()
+                });
+
             $('#albumForm').submit(function(e) {
                 e.preventDefault();
                 var dataForm = new FormData(this);

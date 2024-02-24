@@ -176,6 +176,29 @@ class AlbumController extends Controller
         }
     }
 
+    public function searchImage(Request $request, $id){
+        $post = Post::where('status', 'aktif')
+            ->where('user_id', auth()->id())
+            ->where('album_id', $id)
+            ->where(function ($query) use ($request) {
+                $query->where("judul", "like", "%" . $request->search_string . "%")
+                    ->orWhere("deskripsi", "like", "%" . $request->search_string . "%")
+                    ->orWhere("tag", "like", "%" . $request->search_string . "%");
+            })
+            ->orderBy('id', 'desc')
+            ->paginate(16);
+
+
+        if ($post->count() >= 1) {
+            return view('page.posts.read', compact('post'));
+        } else if ($post->count() <= 1) {
+            return response()->json([
+                'status' => 400,
+                'pesan' => "Data tidak ditemukan"
+            ]);
+        }
+    }
+
 
     public function delete($id)
     {

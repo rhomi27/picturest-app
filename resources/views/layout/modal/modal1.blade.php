@@ -52,8 +52,8 @@
                         </div>
                         <input id="wallpaper" name="wallpaper" type="file" class="hidden" />
                     </label>
-                    <img id="previewWallpaper" class="w-full h-32 object-contain z-0 absolute rounded-md"
-                        src="assets/img/folder.jpg" alt="">
+                    <img id="previewWallpaper" class="w-full h-32 object-contain z-0 absolute rounded-md hidden"
+                        src="" alt="">
                     <p id="wallpaper-errors" class="text-xs font-thin text-red-600 dark:text-red-400"></p>
                 </div>
 

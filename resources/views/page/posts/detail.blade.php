@@ -58,8 +58,13 @@
                                 {{ $data->deskripsi }}
                             </p>
                             <p class="text-black dark:text-gray-300 mt-5">
-                                Tag: <span class="text-blue-600">{{ $data->tag }}</span>
+                                @if(Str::startsWith($data->tag, '#'))
+                                    Tag: <a href="/home?tagValue={{ substr($data->tag, 1) }}" id="tagLink" class="text-blue-600">{{ $data->tag }}</a>
+                                @else
+                                    Tag: <a href="/home?tagValue={{ $data->tag }}" id="tagLink" class="text-blue-600">{{ $data->tag }}</a>
+                                @endif
                             </p>
+                            
                         </div>
                         <div class="flex justify-between mt-10">
                             <div class="flex items-center">

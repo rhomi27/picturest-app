@@ -18,18 +18,19 @@
 </div>
 <div class="container mt-3 mx-auto">
     <div id="tab-content">
-        <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="postingan" role="tabpanel"
+        <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800 mb-28 mx-auto max-w-screen-xl" id="postingan" role="tabpanel"
             aria-labelledby="profile-tab">
             <div id="data-wrap"
-                class="columns-2 gap-2 sm:gap-2 md:gap-3 lg:gap-4 sm:columns-2 md:columns-4 lg:columns-6 [&>figure:not(:first-child)]:mt-2 md:[&>figure:not(:first-child)]:mt-2">
+                class="columns-2 gap-2 sm:gap-2 md:gap-3 lg:gap-4 sm:columns-2 md:columns-4 lg:columns-5 [&>figure:not(:first-child)]:mt-2 md:[&>figure:not(:first-child)]:mt-2">
+
             </div>
-            <div class="loader flex justify-center items-center">
+            <div class="loader flex justify-center items-center mt-5">
                 <img class="w-8 h-8" src="{{ asset('assets/img/loading.gif') }}" alt="hehe">
             </div>
         </div>
-        <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="albumid" role="tabpanel"
+        <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800 mb-28 mx-auto max-w-screen-xl" id="albumid" role="tabpanel"
             aria-labelledby="dashboard-tab">
-            <div id="album" class="grid grid-cols-1 sm:grid-cols-2 w-full h-full gap-2">
+            <div id="album" class="columns-1 sm:columns-2 lg:columns-3 gap-2 mb-5">
                 
             </div>
         </div>

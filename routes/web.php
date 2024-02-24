@@ -61,7 +61,9 @@ Route::middleware(['isLogin','IsUser'])->group(function () {
     Route::get('/delete-album/{id}', [AlbumController::class,'delete'])->name('delete.album');
     Route::get('/delete-all-notif', [ViewController::class,'deleteAll'])->name('deleteall.notif');
     Route::get('/delete/{id}', [ViewController::class,'delete'])->name('delete.notif');
+    Route::get('/help',[ViewController::class,'help'])->name('help');
     Route::get('/search-album',[AlbumController::class,'searchAlbum'])->name('search.album');
+    Route::get('/search-image-album/{id}', [AlbumController::class,'searchImage'])->name('search.image.album');
 
 
     Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout');

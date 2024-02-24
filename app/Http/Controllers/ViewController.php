@@ -124,7 +124,12 @@ class ViewController extends Controller
         ]);
     }
 
-
+    public function help()
+    {
+        $title = 'Picturest | Help';
+        $bg = 'bg-gray-100';
+        return view('help', compact('title', 'bg'));
+    }
 
 
 }

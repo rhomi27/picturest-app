@@ -38,7 +38,7 @@
                                 {{ $data->deskripsi }}
                             </p>
                             <p class="text-black dark:text-gray-300 mt-5">
-                                Tag: <span class="text-blue-600">{{ $data->tag }}</span>
+                                Tag: <a href="/search?tagValue={{ $data->tag }}" id="tagLink" class="text-blue-600">{{ $data->tag }}</a>
                             </p>
                         </div>
                         <div class="flex justify-between mt-10">

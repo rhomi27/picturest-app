@@ -3,7 +3,7 @@
         <a href="#" class="flex items-center space-x-3 rtl:space-x-reverse">
             <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Pisturest</span>
         </a>
-        <div class="flex md:order-2">
+        <div class="flex md:order-2 gap-4">
             <div class="relative w-full md:w-auto lg:w-[500px] hidden md:block" id="navbar-search">
                 <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                     <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
@@ -17,7 +17,7 @@
                     class="block w-full p-2 ps-10 text-sm text-gray-900 border border-blue-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 shadow-md"
                     placeholder="Search..." />
             </div>
-            <button type="button" data-collapse-toggle="navbar-search" aria-controls="navbar-search"
+            <button id="search-button" type="button" data-collapse-toggle="navbar-search" aria-controls="navbar-search"
                 aria-expanded="false"
                 class="md:hidden text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 me-1">
                 <label for="search-nav">
@@ -29,6 +29,12 @@
                 </label>
                 <span class="sr-only">Search</span>
             </button>
+            @if(!auth()->check())
+            <div>
+                <a href="/#login"
+                    class="font-normal block py-2 px-3 mb-2 text-white bg-red-500 hover:bg-red-400 focus:ring-4 focus:outline-none focus:ring-red-600 rounded-lg text-sm text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Masuk</a>
+            </div>
+            @endif
         </div>
     </div>
 </nav>

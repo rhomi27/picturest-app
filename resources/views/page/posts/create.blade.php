@@ -23,8 +23,8 @@
                         </div>
                         <input type="file" id="file" name="file" class="hidden" />
                     </label>
-                    <img id="previewImage" class="w-full h-64 object-contain z-0 absolute rounded-md"
-                        src="assets/img/folder.jpg" alt="">
+                    <img id="previewImage" class="w-full hidden h-64 object-contain z-0 absolute rounded-md"
+                        src="" alt="">
                 </div>
                 <div class="w-full h-full">
                     <div class="mt-4 mb-5">
@@ -143,11 +143,12 @@
 
                     reader.onload = (e) => {
                         $("#previewImage").attr('src', e.target.result);
+                        $("#previewImage").show();
                     }
                     reader.readAsDataURL(this.files[0]);
                 } else {
                     // Kembalikan gambar ke default di sini
-                    $("#previewImage").attr('src', 'assets/img/folder.jpg');
+                    $("#previewImage").hide();
                 }
             });
 
@@ -234,14 +235,14 @@
             $("#wallpaper").change(function() {
                 if (this.files && this.files[0]) {
                     let reader = new FileReader();
-
                     reader.onload = (e) => {
                         $("#previewWallpaper").attr('src', e.target.result);
+                        $("#previewWallpaper").show();
                     }
                     reader.readAsDataURL(this.files[0]);
                 } else {
                     // Kembalikan gambar ke default di sini
-                    $("#previewWallpaper").attr('src', 'assets/img/folder.jpg');
+                    $("#previewWallpaper").hide();
                 }
             });
 

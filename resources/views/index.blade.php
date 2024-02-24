@@ -2,9 +2,9 @@
 @section('content')
     @include('layout.index')
 
-    <section id="login" class="h-screen">
-        <div class="container mx-auto mt-5 px-5 sm:px-10 mb-5">
-            <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 w-full gap-2">
+    <section id="login" class="h-screen pt-10 sm:pt-24">
+        <div class="container mx-auto mt-5 px-5 sm:px-10">
+            <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 w-full gap-2 mt-10">
                 <div class="flex gap-2 justify-center mt-5">
                     <div class="flex flex-col gap-2">
                         <img class="w-52 h-40 rounded-md object-cover" src="assets/img/anim2.jpg" alt="">
@@ -15,7 +15,7 @@
                     </div>
                 </div>
                 <div
-                    class="block bg-slate-50 bg-opacity-80 h-full max-w-lg p-4 border border-blue-300 rounded-md shadow-md">
+                    class="block bg-slate-50 max-h-screen max-w-md w-full p-4 border border-blue-300 rounded-md shadow-md">
                     <!-- Login Tab Content -->
                     <div class="px-3 sm:px-5" id="loginTabContent">
                         <h1
@@ -128,6 +128,32 @@
 @section('script')
     <script>
         $(document).ready(function() {
+
+            $(document).ready(function() {
+                $('a[href^="#"]').on('click', function(event) {
+                    // Pastikan hash telah diset
+                    if (this.hash !== "") {
+                        // Menghentikan default behavior
+                        event.preventDefault();
+
+                        // Simpan hash
+                        var hash = this.hash;
+
+                        // Menggunakan metode animate() jQuery untuk menambahkan animasi scroll
+                        // Menggunakan offset() untuk menyesuaikan posisi
+                        $('html, body').animate({
+                            scrollTop: $(hash).offset().top
+                        }, 800, function() {
+                            // Tambahkan hash ke URL setelah scroll
+                            window.location.hash = hash;
+                        });
+                    }
+                });
+            });
+
+
+
+
             $("#showpw").click(function() {
                 var passwordInput = $("#id-password");
                 var toggleButton = $("#show");
@@ -214,8 +240,6 @@
                     }
                 });
             });
-
-
 
         });
     </script>

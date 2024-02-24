@@ -10,7 +10,7 @@
 
             </div>
             <div class="loader flex justify-center items-center">
-                <img class="w-8 h-8" src="assets/img/loading.gif" alt="hehe">
+                <img class="w-8 h-8" src="{{ asset('assets/img/loading.gif') }}" alt="hehe">
             </div>
         </div>
     </div>
@@ -50,8 +50,20 @@
                 })
         }
 
-        $(document).on('keyup', function(e) {
-            e.preventDefault();
+        function setInputValue() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const tagValue = urlParams.get('tagValue');
+            if (tagValue && tagValue.startsWith('#')) {
+                // Menghilangkan karakter "#" dari nilai input
+                tagValue = tagValue.substring(1);
+            }
+            if (tagValue) {
+                document.getElementById('search-nav').value = tagValue;
+                $('#search-button').click()
+            }
+        }
+
+        function handleSearch() {
             let search_string = $("#search-nav").val();
             $.ajax({
                 url: "{{ route('search.image') }}",
@@ -71,6 +83,15 @@
                 }
 
             })
-        });
+        }
+
+        $(document).ready(function() {
+            setInputValue()
+            handleSearch()
+            $(document).on('keyup', function(e) {
+                e.preventDefault();
+                handleSearch()
+            });
+        })
     </script>
 @endsection
