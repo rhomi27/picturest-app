@@ -53,13 +53,9 @@
         function setInputValue() {
             const urlParams = new URLSearchParams(window.location.search);
             const tagValue = urlParams.get('tagValue');
-            if (tagValue && tagValue.startsWith('#')) {
-                // Menghilangkan karakter "#" dari nilai input
-                tagValue = tagValue.substring(1);
-            }
             if (tagValue) {
                 document.getElementById('search-nav').value = tagValue;
-                $('#search-button').click()
+                $('#search-button').click();
             }
         }
 

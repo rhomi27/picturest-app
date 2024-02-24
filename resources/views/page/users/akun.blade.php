@@ -2,7 +2,7 @@
 @section('content')
     <div class="container mx-auto max-w-screen-md p-5">
         <button type="button" onclick="goBack()"
-            class="text-sm mb-5 bg-blue-600 text-white shadow-md rounded-full p-1 px-3 scale-100 hover:scale-95 ">kembali</button>
+            class="text-sm mb-5 bg-blue-600 text-white shadow-md rounded-full p-1 px-3 scale-100 hover:scale-95 transition-all duration-300">kembali</button>
         <div class="m-auto border border-gray-300 w-full h-full bg-white shadow-lg p-5">
             <h1 class="text-center">Pengaturan Akun</h1>
             <form id="update-acount">
@@ -46,11 +46,15 @@
                 </div>
             </form>
         </div>
-        <h1 class="text-center mt-10 bg-blue-500 text-white rounded-lg p-1 ">Aktivitas Login</h1>
-        <div class="overflow-x-auto mt-5">
+        <h1 class="text-center mt-10 bg-blue-500 text-white rounded-lg p-1 ">History Login</h1>
+        <div class="overflow-x-auto overflow-y-auto h-64 mt-5 mb-5 hide-scrollbar">
             <table class="min-w-full divide-y divide-gray-200">
-                <thead>
+                <thead class="sticky start-0 top-0">
                     <tr>
+                        <th scope="col"
+                            class="px-6 py-3 bg-gray-100 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            <input class="rounded-full w-3 h-3" type="checkbox" id="selectAll">
+                        </th>
                         <th scope="col"
                             class="px-6 py-3 bg-gray-100 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             No</th>
@@ -64,7 +68,9 @@
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
                     @foreach ($aktivitas_log as $item)
-                        <tr>
+                        <tr id="data-{{ $item->id }}">
+                            <td class="px-6 py-4 text-xs whitespace-nowrap"><input type="checkbox"
+                                    class="checkboxId rounded-full w-3 h-3" value="{{ $item->id }}"></td>
                             <td class="px-6 py-4 text-xs whitespace-nowrap">{{ $loop->iteration }}</td>
                             <td class="px-6 py-4 text-xs whitespace-nowrap">
                                 {{ \Carbon\Carbon::parse($item->login_time)->format('Y-F-l H:i') }}
@@ -74,6 +80,11 @@
                     @endforeach
                 </tbody>
             </table>
+        </div>
+        <div class="w-full border border-gray bg-white shadow-md h-full p-5">
+            <button id="deleteSelected" type="button"
+                class="bg-red-600 text-white p-1 px-3 text-sm shadow-md rounded-lg scale-100 hover:scale-95 transition-all duration-300">Hapus
+                terpilih</button>
         </div>
     </div>
 @endsection
@@ -115,6 +126,45 @@
             form[fieldName].value = savedValue;
         }
 
+        $('#selectAll').change(function() {
+            var checkboxes = $('.checkboxId');
+            checkboxes.each(function() {
+                $(this).prop('checked', $('#selectAll').prop('checked'));
+            });
+        });
+
+        $('#deleteSelected').click(function() {
+            var selectIds = [];
+            var checkboxes = $('.checkboxId:checked');
+            checkboxes.each(function() {
+                selectIds.push($(this).val());
+            })
+            if (selectIds.length > 0) {
+                $.ajax({
+                    url: "{{ route('delete.history') }}",
+                    type: 'post',
+                    data: {
+                        ids: selectIds
+                    },
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(res) {
+                        $(`#data-${selectIds.join(', #data-')}`).animate({
+                            opacity: 0,
+                            left: 0,
+                        }, 500, function() {
+                            $(this).hide();
+                        });
+                    },
+                    error: function(err) {
+
+                    }
+                })
+            } else {
+                showMessage('info', 'pilih setidaknya satu data')
+            }
+        })
 
         $(document).ready(function() {
             $('#update-acount').submit(function(e) {

@@ -181,4 +181,13 @@ class UserController extends Controller
             }
         }
     }
+
+    public function deleteHistory(Request $request){
+        $ids = $request->ids;
+        UserLoginLog::whereIn('id', $ids)->delete();
+        return response()->json([
+            'status'=> 200,
+            'message'=> 'history login di bersihkan'
+        ]);
+    }
 }
