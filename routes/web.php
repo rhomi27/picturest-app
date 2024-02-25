@@ -65,8 +65,6 @@ Route::middleware(['isLogin','IsUser'])->group(function () {
     Route::post('/delete-history', [UserController::class,'deleteHistory'])->name('delete.history');
     Route::get('/search-album',[AlbumController::class,'searchAlbum'])->name('search.album');
     Route::get('/search-image-album/{id}', [AlbumController::class,'searchImage'])->name('search.image.album');
-
-
     Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout');
     Route::post('/post-image', [PostController::class, 'store'])->name('post.image');
     Route::post('/update/{id}', [PostController::class,'update'])->name('update.post');
@@ -96,5 +94,6 @@ Route::middleware(['IsAdmin'])->group(function () {
 
     Route::post('/logout-admin', [AdminController::class,'logout'])->name('logout.admin');
     Route::post('/blokir/{id}', [AdminController::class,'blockPost'])->name('block');
+    Route::post('/banned-user', [AdminController::class,''])->name(' ');
 });
 

@@ -21,6 +21,7 @@ return new class extends Migration {
             $table->text('bio')->nullable();
             $table->enum('jenis_kelamin', ['Pria','Wanita'])->nullable();
             $table->date('tanggal_lahir')->nullable();
+            $table->enum('status',['aktif','banned'])->default('aktif');
             $table->enum('role', ['user','admin'])->default('user');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();

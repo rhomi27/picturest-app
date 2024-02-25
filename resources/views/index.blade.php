@@ -129,31 +129,6 @@
     <script>
         $(document).ready(function() {
 
-            $(document).ready(function() {
-                $('a[href^="#"]').on('click', function(event) {
-                    // Pastikan hash telah diset
-                    if (this.hash !== "") {
-                        // Menghentikan default behavior
-                        event.preventDefault();
-
-                        // Simpan hash
-                        var hash = this.hash;
-
-                        // Menggunakan metode animate() jQuery untuk menambahkan animasi scroll
-                        // Menggunakan offset() untuk menyesuaikan posisi
-                        $('html, body').animate({
-                            scrollTop: $(hash).offset().top
-                        }, 800, function() {
-                            // Tambahkan hash ke URL setelah scroll
-                            window.location.hash = hash;
-                        });
-                    }
-                });
-            });
-
-
-
-
             $("#showpw").click(function() {
                 var passwordInput = $("#id-password");
                 var toggleButton = $("#show");

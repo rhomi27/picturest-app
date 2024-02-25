@@ -13,10 +13,10 @@
             </div>
             <!-- Informasi Laporan -->
             <div class="p-6">
-                <div class="flex flex-wrap items-center mb-4 gap-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 items-center mb-4 gap-4">
                     <img src="{{ asset('imagePost/' . $data->posts->file) }}" alt="Gambar"
                         class="w-96 shadow-md h-96 object-contain mr-4">
-                    <div class="flex flex-col">
+                    <div class="grid flex-col">
                         <div class="flex gap-2 mb-4">
                             <img class="h-8 w-8 rounded-full object-cover" src="{{ asset('pictures/' . $user->pictures) }}"
                                 alt="">

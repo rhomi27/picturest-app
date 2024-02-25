@@ -162,14 +162,14 @@ class UserController extends Controller
                 'status' => 400,
                 'errors' => $validator->errors(),
             ]);
-        } else {
+        } else { 
             $user = auth()->user();
             if (!Hash::check($request->old_password, $user->password)) {
                 return response()->json([
                     'status' => 422,
                     'message' => 'Gagal mengubah password.',
                     'errors' => ['old_password' => ['Password lama salah.']],
-                ]);
+                ]); 
             } else {
                 $user->update([
                     'password' => Hash::make($request->new_password),

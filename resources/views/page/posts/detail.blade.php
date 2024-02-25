@@ -96,7 +96,7 @@
                                     <span id="likeCount"
                                         class="text-gray-500 dark:text-gray-300">{{ $data->likes->count() }}</span>
                                 </button>
-                                <div class="flex items-center gap-1">
+                                <a href="#comment" class="flex items-center gap-1">
                                     <svg class="h-4 w-5" width="30" height="30" viewBox="0 0 30 30" fill="none"
                                         xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                         <rect width="30" height="30" fill="url(#pattern0)" />
@@ -111,7 +111,7 @@
                                     </svg>
                                     <span id="comenCount"
                                         class="text-gray-500 dark:text-gray-300">{{ $data->comments->count() }}</span>
-                                </div>
+                                </a>
                             </div>
                         </div>
                     </div>

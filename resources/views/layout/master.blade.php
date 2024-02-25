@@ -5,6 +5,9 @@
     <meta charset="UTF-8" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('assets/icon/apple-touch-icon.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('assets/icon/favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/icon/favicon-32x32.png') }}">
     <title>{{ $title }}</title>
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
@@ -20,7 +23,7 @@
     </style>
 </head>
 
-<body style="scroll-behavior: smooth;" class="overflow-x-hidden {{ $bg }}">
+<body class="overflow-x-hidden {{ $bg }}">
 
     @yield('content')
 
@@ -35,7 +38,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script> --}}
 
     @yield('script')
-    
+
     <script>
         @if (session()->has('success'))
             Swal.fire({
@@ -60,6 +63,28 @@
         @endif
     </script>
     <script>
+        $(document).ready(function() {
+            $('a[href^="#"]').on('click', function(event) {
+                // Pastikan hash telah diset
+                if (this.hash !== "") {
+                    // Menghentikan default behavior
+                    event.preventDefault();
+
+                    // Simpan hash
+                    var hash = this.hash;
+
+                    // Menggunakan metode animate() jQuery untuk menambahkan animasi scroll
+                    // Menggunakan offset() untuk menyesuaikan posisi
+                    $('html, body').animate({
+                        scrollTop: $(hash).offset().top
+                    }, 800, function() {
+                        // Tambahkan hash ke URL setelah scroll
+                        window.location.hash = hash;
+                    });
+                }
+            });
+        });
+
         function goBack() {
             window.history.back();
         }

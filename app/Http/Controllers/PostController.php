@@ -58,7 +58,7 @@ class PostController extends Controller
       $data = Post::with('comments', 'likes')->where('status', 'aktif')->find($id);
       $user = User::where('id', $data->user_id)->first();
       $like = Like::with(['users', 'posts'])->where('post_id', $id)->get();
-      $postUser = Post::where('user_id', $user->id)->where('status','aktif')->get();
+      $postUser = Post::where('user_id', $user->id)->where('status', 'aktif')->get();
       $title = "Picturest | Detail-$data->judul";
       $navTitle = "Detail Postingan";
       return view("page.posts.detail", compact("bg", "title", "navTitle", "data", "user", "like", "postUser"));
@@ -125,9 +125,10 @@ class PostController extends Controller
   {
     $bg = "bg-white";
     $title = "Picturest | Update";
+    $navTitle = "Edit Postingan";
     $post = Post::with(['albums'])->where('status', 'aktif')->find($id);
     $album = Album::where("user_id", auth()->user()->id)->get();
-    return view("page.edit-post", compact("post", "album", "title", "bg"));
+    return view("page.edit-post", compact("post", "album", "title", "bg", "navTitle"));
   }
 
   public function update(Request $request, $id)
