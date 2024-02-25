@@ -36,7 +36,7 @@
 
                     @foreach ($notifikasi as $item)
                         <div id="notif-{{ $item->id }}"
-                            class="notifikasi relative border border-gray-200 h-full w-full rounded-sm drop-shadow-md @if ($item->status == 'new') bg-white @else bg-gray-50 @endif">
+                            class="notifikasi relative border border-gray-200 h-full w-full mb-5 rounded-sm drop-shadow-md @if ($item->status == 'new') bg-white @else bg-gray-50 @endif">
                             <label data-notif-id="{{ $item->id }}"
                                 class="notif flex px-4 py-2 h-full hover:bg-gray-50 dark:hover:bg-gray-700">
                                 <div class="flex-shrink-0">
@@ -120,7 +120,7 @@
                         console.log(res);
                         $(`#notif-${id}`).animate({
                             opacity: 0,
-                            marginLeft: "-100px" 
+                            marginLeft: "-100px"
                         }, 500, function() {
                             $(this).hide();
                         });
@@ -143,8 +143,8 @@
                         $('#readall-notif').hide();
                         $('.notifikasi').animate({
                             opacity: 0,
-                            marginLeft: "-100px" 
-                        }, 500, function(){
+                            marginLeft: "-100px"
+                        }, 500, function() {
                             $(this).hide();
                         });
                         $('#none-notif').show();

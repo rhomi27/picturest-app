@@ -2,9 +2,9 @@
 @section('content')
     @include('layout.navbar.nav1')
     <div class="container mt-3 mx-auto">
-        <div class="p-5">
+        <div class="p-5 mb-28 mx-auto max-w-screen-xl">
             <div id="data-wrap"
-                class="columns-2 gap-2 sm:gap-2 md:gap-3 lg:gap-4 sm:columns-2 md:columns-4 lg:columns-6 [&>figure:not(:first-child)]:mt-2 md:[&>figure:not(:first-child)]:mt-2">
+                class="columns-2 gap-2 sm:gap-2 md:gap-3 lg:gap-4 sm:columns-2 md:columns-4 lg:columns-5 [&>figure:not(:first-child)]:mt-2 md:[&>figure:not(:first-child)]:mt-2">
 
             </div>
         </div>

@@ -3,7 +3,7 @@
     @include('layout.index')
 
     <section id="login" class="h-screen pt-10 sm:pt-24">
-        <div class="container mx-auto mt-5 px-5 sm:px-10">
+        <div class="container mx-auto mt-5 px-5 sm:px-10 mb-5">
             <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 w-full gap-2 mt-10">
                 <div class="flex gap-2 justify-center mt-5">
                     <div class="flex flex-col gap-2">
@@ -14,8 +14,7 @@
                         <img class="w-52 h-80 rounded-md object-cover" src="assets/img/anim1.jpg" alt="">
                     </div>
                 </div>
-                <div
-                    class="block bg-slate-50 max-h-screen max-w-md w-full p-4 border border-blue-300 rounded-md shadow-md">
+                <div class="block bg-slate-50 max-h-screen max-w-md w-full p-4 border border-blue-300 rounded-md shadow-md">
                     <!-- Login Tab Content -->
                     <div class="px-3 sm:px-5" id="loginTabContent">
                         <h1
@@ -121,7 +120,9 @@
                     </div>
                 </div>
             </div>
-        </div>
+            <div class="w-full mt-5 rounded-md border border-gray bg-white shadow-md h-full p-5">
+                <a class="text-blue-600 text-sm" href="/help-tamu">Picturest</a>
+            </div>
         </div>
     </section>
 @endsection

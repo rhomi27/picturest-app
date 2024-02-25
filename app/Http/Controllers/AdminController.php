@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Comment;
 use App\Models\Post;
 use App\Models\User;
 use App\Models\Album;
+use App\Models\Inbox;
 use App\Models\Report;
+use App\Models\Comment;
 use App\Models\Notifikasi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -111,26 +112,68 @@ class AdminController extends Controller
         $title = "Dashboard | Users";
         $bg = 'bg-white';
         $user = User::all();
-        return view("admin.users", compact("title", "bg","user"));
+        return view("admin.users", compact("title", "bg", "user"));
     }
 
-    public function usersInfo($id){
+    public function bannedUser(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+        if($user->status == "aktif") {
+            $user->status = "banned";
+            $user->save();
+            $data = [
+                'from' => auth()->user()->id,
+                'to' => $user->id,
+                'msg' => 'acounnt anda telah di banned dan tidak dapat melakukan kegiatan seperti biasa',
+            ];
+            Notifikasi::create($data);
+            return response()->json([
+                'status' => 400,
+                'message' => 'berhasil di banned',
+            ]);
+        } else if($user->status == "banned") {
+            $user->status = "aktif";
+            $user->save();
+            $data = [
+                'from' => auth()->user()->id,
+                'to' => $user->id,
+                'msg' => 'acounnt anda telah di diaktifkan kembali dan dapat melakukan kegiatan seperti biasa',
+            ];
+            Notifikasi::create($data);
+            return response()->json([
+                'status' => 200,
+                'message' => 'berhasil di aktifkan',
+            ]);
+        }
+    }
+
+    public function usersInfo($id)
+    {
         $title = "Dashboard | Users";
         $bg = 'bg-white';
         $user = User::find($id);
-        $post = Post::where('user_id',$user->id)->get();
-        $album = Album::where('user_id',$user->id)->get();
-        $comen = Comment::with('users')->where('user_id',$user->id)->get();
-        return view("admin.users-info", compact("title", "bg","user","post","album","comen"));
+        $post = Post::where('user_id', $user->id)->get();
+        $album = Album::where('user_id', $user->id)->get();
+        $comen = Comment::with('users')->where('user_id', $user->id)->get();
+        return view("admin.users-info", compact("title", "bg", "user", "post", "album", "comen"));
     }
 
-    public function deleteReport($id){
+    public function deleteReport($id)
+    {
         $report = Report::find($id);
         $report->delete();
         return response()->json([
-            "status"=> 200,
-            "message"=> "berhasil dihapus"
+            "status" => 200,
+            "message" => "berhasil dihapus"
         ]);
+    }
+
+    public function inbox()
+    {
+        $title = "Dashboard | Inbox";
+        $bg = "bg-white";
+        $inbox = Inbox::all();
+        return view("admin.inbox", compact("title", "bg", "inbox"));
     }
 
     public function logout()

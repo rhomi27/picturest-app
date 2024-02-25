@@ -28,8 +28,8 @@
                         class="font-normal block py-2 px-3 mb-2 text-white bg-red-500 hover:bg-red-400 focus:ring-4 focus:outline-none focus:ring-red-600 rounded-lg text-sm text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Masuk</a>
                 </li>
                 <li>
-                    <a href="#login"
-                        class="font-normal block py-2 px-3 mb-2 text-black bg-gray-300 hover:text-white hover:bg-gray-500 focus:ring-4 focus:outline-none focus:ring-gray-400 rounded-lg text-sm text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Daftar</a>
+                    <a href="/help-tamu"
+                        class="font-normal block py-2 px-3 mb-2 text-black bg-gray-300 hover:text-white hover:bg-gray-500 focus:ring-4 focus:outline-none focus:ring-gray-400 rounded-lg text-sm text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Tentang</a>
                 </li>
             </ul>
         </div>

@@ -4,7 +4,7 @@
     <!-- Main modal -->
     @include('page.posts.detail.modal-report')
     <section id="foto">
-        <div class="container mx-auto p-5">
+        <div class="container mx-auto p-5  w-full md:w-3/4">
             <div class="grid grid-cols-1 gap-4 sm:grid-cols-1 md:grid-cols-2 mt-10">
                 <div class="w-full max-h-screen">
                     <img class="w-full h-full rounded-sm drop-shadow-md object-contain"

@@ -3,6 +3,7 @@
 namespace App\Http;
 
 use App\Http\Middleware\IsAdmin;
+use App\Http\Middleware\IsBanned;
 use App\Http\Middleware\isTamu;
 use App\Http\Middleware\isLogin;
 use App\Http\Middleware\IsUser;
@@ -71,5 +72,6 @@ class Kernel extends HttpKernel
         'isTamu' => isTamu::class,
         'IsUser' => IsUser::class,
         'IsAdmin' => IsAdmin::class,
+        'IsBanned' => IsBanned::class,
     ];
 }
