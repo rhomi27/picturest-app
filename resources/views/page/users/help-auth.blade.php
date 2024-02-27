@@ -24,6 +24,7 @@
             <p class="mb-4">Jika Anda memerlukan bantuan lebih lanjut atau memiliki pertanyaan, jangan ragu untuk
                 menghubungi tim dukungan kami.</p>
             <form action="/inbox-auth" method="post">
+                @csrf
                 <label for="nama" class="block mb-2">Nama:</label>
                 <input type="text" id="nama" name="name"
                     class="w-full border border-gray-300 rounded-md px-4 py-2 mb-4" required>

@@ -20,7 +20,7 @@ class IsBanned
         if (Auth::check()) {
             $user = Auth::user();
             if ($user->status === 'banned') {
-                return redirect()->back()->with('error','acount anda dalam keadaan banned');
+                return redirect()->back()->with('error','akun anda dalam keadaan banned');
             }
         }
         return $next($request);

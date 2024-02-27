@@ -31,9 +31,9 @@ class DatabaseSeeder extends Seeder
         'email' => 'admin@gmail.com',
         'password' => bcrypt('admin123'),
         ];
-        User::create($data);
+        // User::create($data);
 
-        // Post::factory(50)->create();
-        // Album::factory(20)->create();
+        Post::factory(100)->create();
+        Album::factory(20)->create();
     }
 }
