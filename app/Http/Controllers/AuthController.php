@@ -81,7 +81,7 @@ class AuthController extends Controller
 
             if (Auth::attempt($dataLogin)) {
                 $request->session()->regenerate();
-// saya mentrigrer data pada tabel user_login_logs ketika user itu melakukan login dan loginnya berhsasil
+                // saya mentrigrer data pada tabel user_login_logs ketika user itu melakukan login dan loginnya berhsasil
                 $timeZone = $request->timeZone;
                 $loginTime = Carbon::now()->setTimezone($timeZone);
                 UserLoginLog::create([
@@ -89,7 +89,7 @@ class AuthController extends Controller
                     "login_time" => $loginTime,
                     "ip_address" => $request->ip(),
                 ]);
-                
+
                 return response()->json([
                     'status' => 200,
                     'messages' => 'Login berhasil',
@@ -106,7 +106,21 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
+        $user = Auth()->user()->id;
+        $userLoginLog = UserLoginLog::where('user_id', $user)->latest()->first();
+
+        if ($userLoginLog) {
+            $userLoginLog->delete();
+        }
+        
+        UserLoginLog::create([
+            "user_id" => Auth::id(),
+            "login_time" => Carbon::now(),
+            "ip_address" => $request->ip(),
+        ]);
+
         Auth::logout();
+
         return redirect('/')->with('success', 'Berhasil logout');
     }
 

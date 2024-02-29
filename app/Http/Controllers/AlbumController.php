@@ -190,7 +190,7 @@ class AlbumController extends Controller
 
 
         if ($post->count() >= 1) {
-            return view('page.posts.read', compact('post'));
+            return view('page.users.data-user.post-user', compact('post'));
         } else if ($post->count() <= 1) {
             return response()->json([
                 'status' => 400,
