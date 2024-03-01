@@ -107,26 +107,36 @@ class AdminController extends Controller
         }
     }
 
-    public function showUser()
+    public function showUser(Request $request)
     {
         $title = "Dashboard | Users";
         $bg = 'bg-white';
-        $user = User::paginate(15);
-        return view("admin.users", compact("title", "bg", "user"));
+        $user = User::paginate(9);
+        $data = '';
+        if ($request->ajax()) {
+            $data .= view("admin.usersShow", compact("user"));
+            return $data;
+        }
+        return view("admin.users", compact("title", "bg"));
     }
 
     public function searchUser(Request $request)
     {
-        
+
         $user = User::where("username", "LIKE", "%" . $request->search . "%")
-        ->orWhere("email", "LIKE", "%" . $request->search . "%")
-        ->orderBy("id","desc")->get();
-        return response()->json([
-            'status' => 200,
-            'data' => $user,
-        ]);
+            ->orWhere("email", "LIKE", "%" . $request->search . "%")
+            ->orderBy("id", "desc")->paginate(9);
+
+        if ($user->count() >= 1) {
+            return view("admin.usersShow", compact("user"));
+        } else if ($user->count() <= 1) {
+            return response()->json([
+                "status" => 400,
+                "message" => "Users tidak ditemukan"
+            ]);
+        }
     }
-    
+
 
     public function bannedUser(Request $request, $id)
     {

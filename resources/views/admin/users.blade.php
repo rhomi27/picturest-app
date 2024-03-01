@@ -2,104 +2,84 @@
 @section('content')
     @include('admin.layout.nav-side')
     <div class="p-4 sm:ml-64">
+        <div id="navbar-search" class="sticky start-0 top-5 sm:top-5 w-full hidden sm:inline-block">
+            <input id="search-user" type="text" class="p-1 rounded-md focus:outline-none px-4 text-sm w-full ">
+        </div>
         <div class="container mx-auto p-5">
-            <div class="p-2 gap-2 flex">
 
-                <input type="text" name="query" id="searchInput" class="rounded-md">
-
+            <div id="content" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
 
             </div>
-            <div class="overflow-x-auto">
-                <table id="userTable" class="min-w-full divide-y divide-gray-200">
-                    <thead>
-                        <tr>
-                            <th scope="col"
-                                class="px-6 py-3 bg-gray-100 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                Nama</th>
-                            <th scope="col"
-                                class="px-6 py-3 bg-gray-100 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                Email</th>
-                            <th scope="col"
-                                class="px-6 py-3 bg-gray-100 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                Status</th>
-                            <th scope="col"
-                                class="px-6 py-3 bg-gray-100 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                info</th>
-                            <th scope="col"
-                                class="px-6 py-3 bg-gray-100 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                Tindak</th>
-                        </tr>
-                    </thead>
-                    <tbody class="bg-white divide-y divide-gray-200">
-                        @foreach ($user as $item)
-                            <tr>
-                                <td class="px-6 py-4 text-xs whitespace-nowrap">{{ $item->username }}</td>
-                                <td class="px-6 py-4 text-xs whitespace-nowrap">{{ $item->email }}</td>
-                                <td id="user-{{ $item->id }}" class="px-6 py-4 text-xs whitespace-nowrap">
-                                    {{ $item->status }}</td>
-                                <td class="px-6 py-4 text-xs whitespace-nowrap">
-                                    <a class="bg-indigo-400 p-1 text-white font-semibold hover:bg-indigo-600 rounded-lg px-2"
-                                        href="/users-info/{{ $item->id }}">Cek</a>
-                                </td>
-                                <td>
-                                    <button type="button" data-user-id="{{ $item->id }}"
-                                        data-status="{{ $item->status }}" data-nama="{{ $item->username }}"
-                                        class="banned text-xs px-4 p-1 bg-blue-500 text-white rounded shadow-md scale-100 hover:scale-105 hover:bg-blue-400">
-                                        {{ $item->status === 'aktif' ? 'Banned user' : 'Aktifkan user' }}
-                                    </button>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+            <div class="loader flex justify-center items-center">
+                <img class="w-8 h-8" src="{{ asset('assets/img/loading.gif') }}" alt="hehe">
             </div>
         </div>
     </div>
 @endsection
 @section('script')
     <script>
-        $(document).ready(function() {
-            $('#searchInput').on('input', function(e) {
-                e.preventDefault();
-                let query = $('#searchInput').val();
-                $.ajax({
-                    url: "{{ route('users.search') }}",
-                    method: 'GET',
-                    data: {
-                        search: query
-                    },
-                    success: function(response) {
-                        let usersHtml = ''; // Variabel untuk menyimpan HTML pengguna
-                        $.each(response.data, function(index, user) {
-                            // Membuat baris HTML untuk setiap pengguna
-                            usersHtml += '<tr>' +
-                                '<td class="px-6 py-4 text-xs whitespace-nowrap">' +
-                                user.username + '</td>' +
-                                '<td class="px-6 py-4 text-xs whitespace-nowrap">' +
-                                user.email + '</td>' +
-                                '<td id="user-' + user.id +
-                                '" class="px-6 py-4 text-xs whitespace-nowrap">' + user
-                                .status + '</td>' +
-                                '<td class="px-6 py-4 gap-2 text-xs whitespace-nowrap">' +
-                                '<a class="bg-indigo-400 p-1 text-white font-semibold hover:bg-indigo-600 rounded-lg px-2" href="/users-info/' +
-                                user.id + '">Cek</a>' +
-                                '</td>' +
-                                '<td>'+
-                            '<button type="button" data-user-id="' + user.id +
-                                '" data-status="' + user.status + '" data-nama="' + user
-                                .username +
-                                '" class="banned text-xs px-4 p-1 bg-blue-500 text-white rounded shadow-md scale-100 hover:scale-105 hover:bg-blue-400">' +
-                                (user.status === 'aktif' ? 'Banned user' :
-                                    'Aktifkan user') + '</button>' +
-                                '</td>' +
-                                '</tr>';
-                        });
-
-                        // Menambahkan baris HTML ke tbody tabel
-                        $('#userTable tbody').html(usersHtml);
+        function handleSearch() {
+            let search_string = $("#search-user").val();
+            $.ajax({
+                url: "{{ route('users.search') }}",
+                method: "get",
+                data: {
+                    search: search_string
+                },
+                beforeSend: function() {
+                    $('.loader').show();
+                },
+                success: function(res) {
+                    $('#content').html(res);
+                    $('.loader').html("tidak ada data lainnya");
+                    if (res.status == 400) {
+                        $('.loader').html(res.message);
                     }
-                });
+                }
+
+            })
+        }
+        $(document).ready(function() {
+
+            $('#search-user').on('keyup', function(e) {
+                e.preventDefault();
+                handleSearch();
+
+            })
+
+
+            var EndPoint = "{{ route('users') }}";
+            var page = 1;
+            LoadMore(page);
+
+            $(window).scroll(function() {
+                if ($(window).scrollTop() + $(window).height() >= ($(document).height() - 5)) {
+                    page++;
+                    LoadMore(page);
+                }
             });
+
+            function LoadMore(page) {
+                $.ajax({
+                        url: EndPoint + "?page=" + page,
+                        type: "get",
+                        datatype: "html",
+                        beforeSend: function() {
+                            $('.loader').show();
+                        }
+                    })
+                    .done(function(data) {
+                        if (data.length == 0) {
+                            $('.loader').html("tidak ada data lainnya");
+                            return;
+                        }
+                        $('.loader').hide();
+                        $("#content").append(data);
+                    })
+                    .fail(function(jqXHR, ajaxOptions, thrownError) {
+                        console.log('server error');
+                    })
+            }
         });
     </script>
 
@@ -112,7 +92,7 @@
             });
         }
         $(document).ready(function() {
-            $('.banned').click(function() {
+            $('#content').on('click', '.banned', function() {
                 var userId = $(this).data('user-id');
                 var status = $(this).data('status');
                 var nama = $(this).data('nama');

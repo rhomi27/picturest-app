@@ -9,7 +9,7 @@
             </div>
         </div>
         <div class="loader flex justify-center items-center">
-            <img class="w-8 h-8" src="assets/img/loading.gif" alt="hehe">
+            <img class="w-8 h-8" src="{{ asset('assets/img/loading.gif') }}" alt="hehe">
         </div>
     </div>
 @endsection
