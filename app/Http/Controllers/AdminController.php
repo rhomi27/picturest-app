@@ -111,14 +111,27 @@ class AdminController extends Controller
     {
         $title = "Dashboard | Users";
         $bg = 'bg-white';
-        $user = User::all();
+        $user = User::paginate(15);
         return view("admin.users", compact("title", "bg", "user"));
     }
+
+    public function searchUser(Request $request)
+    {
+        
+        $user = User::where("username", "LIKE", "%" . $request->search . "%")
+        ->orWhere("email", "LIKE", "%" . $request->search . "%")
+        ->orderBy("id","desc")->get();
+        return response()->json([
+            'status' => 200,
+            'data' => $user,
+        ]);
+    }
+    
 
     public function bannedUser(Request $request, $id)
     {
         $user = User::findOrFail($id);
-        if($user->status == "aktif") {
+        if ($user->status == "aktif") {
             $user->status = "banned";
             $user->save();
             $data = [
@@ -131,7 +144,7 @@ class AdminController extends Controller
                 'status' => 400,
                 'message' => 'berhasil di banned',
             ]);
-        } else if($user->status == "banned") {
+        } else if ($user->status == "banned") {
             $user->status = "aktif";
             $user->save();
             $data = [

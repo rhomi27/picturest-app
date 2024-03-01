@@ -16,6 +16,7 @@ class FollowController extends Controller
 
         if ($isFollowing) {
             auth()->user()->following()->detach($userId);
+
             if (auth()->id() !== $userId) {
                 $notif = [
                     'from' => auth()->user()->id,
@@ -26,6 +27,7 @@ class FollowController extends Controller
             }
         } else {
             auth()->user()->following()->attach($userId);
+             
             if (auth()->id() !== $userId) {
                 $notif = [
                     'from' => auth()->user()->id,

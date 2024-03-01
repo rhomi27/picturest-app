@@ -158,7 +158,7 @@
                         } else {
                             button.find('#notfollow').show();
                             button.find('#followed').hide();
-                        }
+                        } 
                     }.bind(this),
                     error: function(jqXHR, ajaxOptions, thrownError) {
                         console.log('server error');
