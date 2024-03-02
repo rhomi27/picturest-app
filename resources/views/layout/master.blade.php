@@ -38,7 +38,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script> --}}
 
     @yield('script')
-
+    @stack('scripts')
     <script>
         @if (session()->has('success'))
             Swal.fire({

@@ -5,7 +5,7 @@
         <div id="navbar-search" class="sticky start-0 top-5 sm:top-5 w-full hidden sm:inline-block">
             <input id="search-report" type="text" class="p-1 rounded-md focus:outline-none px-4 text-sm w-full ">
         </div>
-        <div class="container mx-auto p-5">
+        <div id="content" class="container mx-auto p-5">
             <h1 class="text-lg font-semibold mb-4">Laporan dari Pengguna</h1>
             
         </div>
@@ -14,8 +14,69 @@
 @endsection
 @section('script')
     <script>
-        $('.delete-btn').click(function() {
-            const id = $(this).data('report-id')
+
+function handleSearch() {
+            let search_string = $("#search-report").val();
+            $.ajax({
+                url: "{{ route('report.search') }}",
+                method: "get",
+                data: {
+                    search: search_string
+                },
+                beforeSend: function() {
+                    $('.loader').show();
+                },
+                success: function(res) {
+                    $('#content').html(res);
+                    $('.loader').html("tidak ada data lainnya");
+                    if (res.status == 400) {
+                        $('.loader').html(res.message);
+                    }
+                }
+
+            })
+        }
+        $(document).ready(function() {
+            $('#search-report').on('keyup', function(e) {
+                e.preventDefault();
+                handleSearch();
+
+            })
+
+            var EndPoint = "{{ route('report') }}";
+            var page = 1;
+            LoadMore(page);
+
+            $(window).scroll(function() {
+                if ($(window).scrollTop() + $(window).height() >= ($(document).height() - 5)) {
+                    page++;
+                    LoadMore(page);
+                }
+            });
+
+            function LoadMore(page) {
+                $.ajax({
+                        url: EndPoint + "?page=" + page,
+                        type: "get",
+                        datatype: "html",
+                        beforeSend: function() {
+                            $('.loader').show();
+                        }
+                    })
+                    .done(function(data) {
+                        if (data.length == 0) {
+                            $('.loader').html("tidak ada data lainnya");
+                            return;
+                        }
+                        $('.loader').hide();
+                        $("#content").append(data);
+                    })
+                    .fail(function(jqXHR, ajaxOptions, thrownError) {
+                        console.log('server error');
+                    })
+            }
+        $('#content').on('click','.delete-btn',function() {
+            const id = $(this).data('report-id') 
             const delUrl = `/delete-report/${id}`
             Swal.fire({
                 title: "kamu yakin?",

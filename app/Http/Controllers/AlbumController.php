@@ -178,7 +178,6 @@ class AlbumController extends Controller
 
     public function searchImage(Request $request, $id){
         $post = Post::where('status', 'aktif')
-            ->where('user_id', auth()->id())
             ->where('album_id', $id)
             ->where(function ($query) use ($request) {
                 $query->where("judul", "like", "%" . $request->search_string . "%")
@@ -190,7 +189,7 @@ class AlbumController extends Controller
 
 
         if ($post->count() >= 1) {
-            return view('page.users.data-user.post-user', compact('post'));
+            return view('page.album.read-detail', compact('post'));
         } else if ($post->count() <= 1) {
             return response()->json([
                 'status' => 400,

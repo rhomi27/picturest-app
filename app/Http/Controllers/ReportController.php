@@ -30,7 +30,7 @@ class ReportController extends Controller
             Report::create($data);
             return response()->json([
                 'status'=> 200,
-                'message'=> 'report telah dikirim',
+                'message'=> 'Anda berhasil melaporkan postingan',
             ]);
         }
     }

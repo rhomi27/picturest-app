@@ -1,10 +1,10 @@
 @foreach ($post as $item)
+@if (auth()->check() && $item->user_id == auth()->id())
     <figure class="flex flex-col border drop-shadow-md overflow-hidden rounded-b-md">
         <a class="overflow-hidden" href="/detail/{{ $item->id }}">
             <img class="filter grayscale-0 hover:grayscale cursor-pointer transition-all duration-100 scale-100 hover:scale-105"
                 src="{{ asset('imagePost/' . $item->file) }}" alt="" />
         </a>
-        @if (auth()->check() && $item->user_id == auth()->id())
         <div class="flex gap-2 bg-white p-1 bottom-0 h-10 justify-end w-full">
             <a href="/view-update/{{ $item->id }}" class="flex items-center">
                 <svg class="w-4 h-4 text-blue-700" xmlns="http://www.w3.org/2000/svg" fill="currentColor" id="Layer_1"
@@ -24,6 +24,19 @@
                 </svg>
             </button>
         </div>
-        @endif
     </figure>
+    @else
+            <figure class="flex flex-col border bg-white drop-shadow-md overflow-hidden rounded-b-md">
+            <a class="overflow-hidden" href="/detail/{{ $item->id }}">
+                <img class="filter grayscale-0 hover:grayscale cursor-pointer transition-all duration-100 scale-100 hover:scale-105"
+                    src="{{ asset('imagePost/' . $item->file) }}" alt="" />
+            </a>
+            <div class="flex gap-2 p-2 bottom-0 h-full justify-between w-full">
+                <a href="/profil-user/{{ $item->user_id }}" class="flex items-center gap-2">
+                    <img class="w-5 h-5 rounded-full object-cover" src="{{ asset('pictures/'.$item->users->pictures) }}" alt="profil">
+                    <h1 class="text-xs text-black">{{ $item->users->username }}</h1>
+                </a>
+            </div>
+        </figure>
+    @endif
 @endforeach

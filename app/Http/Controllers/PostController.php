@@ -128,7 +128,11 @@ class PostController extends Controller
     $navTitle = "Edit Postingan";
     $post = Post::with(['albums'])->where('status', 'aktif')->find($id);
     $album = Album::where("user_id", auth()->user()->id)->get();
-    return view("page.edit-post", compact("post", "album", "title", "bg", "navTitle"));
+    if($post->user_id == auth()->id()){
+      return view("page.edit-post", compact("post", "album", "title", "bg", "navTitle"));
+    }else{
+      return view('error-handling.404');
+    }
   }
 
   public function update(Request $request, $id)

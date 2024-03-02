@@ -15,7 +15,7 @@
 @endsection
 @section('script')
     <script>
-        var EndPoint = "{{ route('view.tamu') }}";
+        var EndPoint = "/search-tamu";
         var page = 1;
         LoadMore(page);
 

@@ -23,8 +23,8 @@
                         </div>
                         <input type="file" id="file" name="file" class="hidden" />
                     </label>
-                    <img id="previewImage" class="w-full hidden h-64 object-contain z-0 absolute rounded-md"
-                        src="" alt="">
+                    <img id="previewImage" class="w-full hidden h-64 object-contain z-0 absolute rounded-md" src=""
+                        alt="">
                 </div>
                 <div class="w-full h-full">
                     <div class="mt-4 mb-5">
@@ -39,13 +39,13 @@
                     </div>
                     <div class="mb-5">
                         <div class="relative z-0">
-                            <input type="text" id="deskripsi" name="deskripsi"
+                            <input type="text" id="deskripsi-id" name="deskripsi"
                                 class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                 placeholder=" " />
                             <label for="deskripsi"
                                 class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto">Deskripsi</label>
                         </div>
-                        <p id="deskripsi-error" class="mt-2 text-xs font-thin text-red-600 dark:text-red-400"></p>
+                        <p id="deskripsi-id-error" class="mt-2 text-xs font-thin text-red-600 dark:text-red-400"></p>
                     </div>
                     <div class="mb-5">
                         <div class="relative z-0">
@@ -82,208 +82,6 @@
         </div>
     </div>
 @endsection
-@section('script')
-    <script>
-        function showError(field, message) {
-            const errorElement = $("#" + field + "-error");
-            if (!message) {
-                $("#" + field).addClass("border-green-600").removeClass("border-red-600");
-                errorElement.text("");
-            } else {
-                $("#" + field).addClass("border-red-600").removeClass("border-green-600");
-                errorElement.text(message);
-            }
-        }
-        function showErrorFile(message) {
-            const Toast = Swal.mixin({
-                toast: true,
-                position: "top",
-                showConfirmButton: false,
-                timer: 3000,
-                timerProgressBar: true,
-                didOpen: (toast) => {
-                    toast.onmouseenter = Swal.stopTimer;
-                    toast.onmouseleave = Swal.resumeTimer;
-                }
-            });
-            Toast.fire({
-                icon: 'error',
-                title: message,
-            });
-        }
-        function showMessage(link, message) {
-            Swal.fire({
-                title: message,
-                text: 'Lihat detail??',
-                icon: "success",
-                showCancelButton: true,
-                confirmButtonText: 'OK',
-                cancelButtonText: 'Batal',
-                allowOutsideClick: false,
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href = link;
-                }
-            });
-        }
-
-        function removeValidasiClass(form) {
-            $(form).each(function() {
-                $(form).find(':input').removeClass('border-green-600 border-red-600');
-
-                $(form).find('.text-red-600, .text-green-600').text('');
-            });
-        }
-
-        $(document).ready(function() {
-
-            $("#file").change(function() {
-                if (this.files && this.files[0]) {
-                    let reader = new FileReader();
-
-                    reader.onload = (e) => {
-                        $("#previewImage").attr('src', e.target.result);
-                        $("#previewImage").show();
-                    }
-                    reader.readAsDataURL(this.files[0]);
-                } else {
-                    // Kembalikan gambar ke default di sini
-                    $("#previewImage").hide();
-                }
-            });
-
-            $("#createForm").submit(function(e) {
-                e.preventDefault();
-                var formData = new FormData(this);
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    contentType: false,
-                    processData: false,
-                })
-                $.ajax({
-                    url: "{{ route('post.image') }}",
-                    type: "post",
-                    data: formData,
-                    // dataType: 'json',
-                    success: function(res) {
-                        if (res.status == 400) {
-                            console.log(res);
-                            showErrorFile(res.errors.file);
-                            showError('judul', res.errors.judul);
-                            showError('deskripsi', res.errors.deskripsi);
-                            showError('tag', res.errors.tag);
-                            setTimeout(function() {
-                                $("#file-error, #judul-error, #deskripsi-error, #tag-error")
-                                    .empty();
-                            }, 3000);
-                        } else if (res.status == 200) {
-                            var link = '/detail/' + res.postId;
-                            showMessage(link, res.messages)
-                            $("#createForm")[0].reset();
-                            removeValidasiClass("#createForm");
-                        }
-                    },
-                    error: function(err) {
-                        console.error(err);
-                    }
-                });
-            });
-
-        });
-    </script>
-    <script>
-        function showMessageAlbum(type, message) {
-            const Toast = Swal.mixin({
-                toast: true,
-                position: "top",
-                showConfirmButton: false,
-                timer: 3000,
-                timerProgressBar: true,
-                didOpen: (toast) => {
-                    toast.onmouseenter = Swal.stopTimer;
-                    toast.onmouseleave = Swal.resumeTimer;
-                }
-            });
-            Toast.fire({
-                icon: type,
-                title: message,
-            });
-        }
-
-        function removeValidasiClass(form) {
-            $(form).each(function() {
-                $(form).find(':input').removeClass('border-green-600 border-red-600');
-
-                $(form).find('.text-red-600, .text-green-600').text('');
-            });
-        }
-
-        function showErrorAlbum(field, message) {
-            const errorElement = $("#" + field + "-errors");
-            if (!message) {
-                $("#" + field).addClass("border-green-600").removeClass("border-red-600");
-                errorElement.text("");
-            } else {
-                $("#" + field).addClass("border-red-600").removeClass("border-green-600");
-                errorElement.text(message);
-            }
-        }
-        $(document).ready(function() {
-
-            $("#wallpaper").change(function() {
-                if (this.files && this.files[0]) {
-                    let reader = new FileReader();
-                    reader.onload = (e) => {
-                        $("#previewWallpaper").attr('src', e.target.result);
-                        $("#previewWallpaper").show();
-                    }
-                    reader.readAsDataURL(this.files[0]);
-                } else {
-                    // Kembalikan gambar ke default di sini
-                    $("#previewWallpaper").hide();
-                }
-            });
-
-            $('#albumForm').submit(function(e) {
-                e.preventDefault();
-                var dataForm = new FormData(this);
-
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    contentType: false,
-                    processData: false,
-                });
-
-                $.ajax({
-                    url: "{{ route('post.album') }}",
-                    type: "post",
-                    data: dataForm,
-                    success: function(res) {
-                        console.log(res)
-                        if (res.status == 400) {
-                            showErrorAlbum('nama', res.errors.nama);
-                            showErrorAlbum('deskripsi', res.errors.deskripsi);
-                            showErrorAlbum('wallpaper', res.errors.wallpaper);
-                            setTimeout(function() {
-                                $("#nama-errors, #deskripsi-errors, #wallpaper-errors")
-                                    .empty();
-                            }, 3000);
-                        } else if (res.status == 200) {
-                            showMessageAlbum('success', res.messages)
-                            $("#albumForm")[0].reset();
-                            removeValidasiClass("#albumForm");
-                            $("#close-modal").click();
-                            $('.album').load(location.href + ' .album')
-                        }
-                    },
-
-                })
-            })
-
-        });
-    </script>
-@endsection
+@push('scripts')
+    <script src="{{ asset('assets/js/create.js') }}"></script>
+@endpush

@@ -38,49 +38,6 @@
         </div>
     </section>
 @endsection
-@section('script')
-    <script>
-        $(document).ready(function() {
-            const followed = $('.follow-btn').data('follow');
-            if (followed) {
-                $('.notfollow').hide();
-                $('.followed').show();
-            } else {
-                $('.notfollow').show();
-                $('.followed').hide();
-            }
-
-            $('.follow-btn').click(function() {
-                const userId = $(this).data('user-id');
-                const followUrl = `/follow-user/${userId}`;
-
-                var button = $(this);
-
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });
-
-                $.ajax({
-                    url: followUrl,
-                    type: 'post',
-                    success: function(data) {
-                        console.log(data);
-                        if (data.following) {
-                            button.find('.notfollow').hide();
-                            button.find('.followed').show();
-                        } else {
-                            button.find('.notfollow').show();
-                            button.find('.followed').hide();
-                        }
-                    }.bind(this),
-                    error: function(jqXHR, ajaxOptions, thrownError) {
-                        console.log('server error');
-                    }
-                });
-            });
-        });
-    </script>
-@endsection
-<script></script>
+@push('scripts')
+    <script src="{{ asset('assets/js/follow.js') }}"></script>
+@endpush

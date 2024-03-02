@@ -57,12 +57,17 @@ class AdminController extends Controller
 
         return response()->json(['data' => $reportsPerDay]);
     }
-    public function showReport()
+    public function showReport(Request $request)
     {
         $title = "Dashboard | Report";
         $bg = 'bg-white';
-        $data = Report::with(['users', 'posts'])->latest()->get();
-        return view("admin.report", compact("title", "bg", "data"));
+        $report = Report::with(['users', 'posts'])->latest()->paginate(7);
+        $data = '';
+        if ($request->ajax()) {
+            $data .= view("admin.showReport", compact("report"));
+            return $data;
+        }
+        return view("admin.report", compact("title", "bg", ));
     }
     public function detailReport($id)
     {
