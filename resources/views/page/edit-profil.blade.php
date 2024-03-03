@@ -39,7 +39,10 @@
                         <input class="hidden" type="file" name="pictures" id="pictures">
                     </label>
                     <p id="pictures-error" class="mt-2 text-xs text-red-600 dark:text-red-400"></p>
-                    <h1 class="text-sm font-medium text-black mt-2">ubah foto</h1>
+                    <h1 class="text-sm font-medium text-black mt-2 mb-2">ubah photo</h1>
+                    <a id="delete-pp"
+                        class="mb-5 text-xs bg-red-500 text-white px-2 p-1 rounded-md scale-100 hover:scale-95">hapus
+                        photo</a>
                 </div>
                 <div class="flex text-sm px-5 mt-5">
                     Tentang Anda
@@ -105,4 +108,7 @@
 @endsection
 @push('scripts')
     <script src="{{ asset('assets/js/edit-profil.js') }}"></script>
+    <script>
+       
+    </script>
 @endpush

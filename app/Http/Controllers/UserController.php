@@ -131,6 +131,20 @@ class UserController extends Controller
         }
     }
 
+    public function hapusProfil(){
+        $user = auth()->user();
+        if ($user->pictures !== 'user.jpg') {
+            File::delete(public_path('pictures/' . $user->pictures));
+        }
+        $user->update([
+            'pictures' => 'user.jpg'
+        ]);
+        return response()->json([
+            'status'=> 200,
+            'message'=> 'Photo profil berhasil dihapus'
+        ]);
+    }
+
     public function setAcount(Request $request)
     {
         $title = 'Pengaturan akun';

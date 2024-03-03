@@ -94,7 +94,7 @@
 </div>
     
 @endsection
-@section('script')
+@push('scripts')
     <script>
         function showTab(tabName) {
             // Menyembunyikan semua konten tab
@@ -106,4 +106,4 @@
             document.getElementById(tabName + 'Tab').style.display = 'block';
         }
     </script>
-@endsection
+@endpush

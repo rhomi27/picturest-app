@@ -58,13 +58,15 @@
                                 {{ $data->deskripsi }}
                             </p>
                             <p class="text-black dark:text-gray-300 mt-5">
-                                @if(Str::startsWith($data->tag, '#'))
-                                    Tag: <a href="/home?tagValue={{ substr($data->tag, 1) }}" id="tagLink" class="text-blue-600">{{ $data->tag }}</a>
+                                @if (Str::startsWith($data->tag, '#'))
+                                    Tag: <a href="/home?tagValue={{ substr($data->tag, 1) }}" id="tagLink"
+                                        class="text-blue-600">{{ $data->tag }}</a>
                                 @else
-                                    Tag: <a href="/home?tagValue={{ $data->tag }}" id="tagLink" class="text-blue-600">{{ $data->tag }}</a>
+                                    Tag: <a href="/home?tagValue={{ $data->tag }}" id="tagLink"
+                                        class="text-blue-600">{{ $data->tag }}</a>
                                 @endif
                             </p>
-                            
+
                         </div>
                         <div class="flex justify-between mt-10">
                             <div class="flex items-center">
@@ -124,4 +126,5 @@
 @endsection
 @push('scripts')
     <script src="{{ asset('assets/js/detail.js') }}"></script>
+    <script src="{{ asset('assets/js/comment-reports.js') }}"></script>
 @endpush

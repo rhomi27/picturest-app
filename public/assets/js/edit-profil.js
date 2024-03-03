@@ -80,3 +80,29 @@ $(document).ready(function() {
     });
 
 });
+
+$('#delete-pp').click(function() {
+    Swal.fire({
+        title: "Apa kamu yakinn?",
+        text: "akan menghapus foto profilmu",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Ya, hapus!",
+        cancelButtonText: "batal"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: "/hapus-profil",
+                type: 'get',
+                success: function(res) {
+                    $('#previewImage').attr('src','pictures/user.jpg')
+                },
+                error: function(err) {
+                    console.log('error')
+                }
+            })
+        }
+    });
+})

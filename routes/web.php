@@ -72,6 +72,7 @@ Route::middleware(['isLogin', 'IsUser'])->group(function () {
     Route::post('/delete-history', [UserController::class, 'deleteHistory'])->name('delete.history');
     Route::get('/search-album', [AlbumController::class, 'searchAlbum'])->name('search.album');
     Route::get('/search-image-album/{id}', [AlbumController::class, 'searchImage'])->name('search.image.album');
+    Route::get('/hapus-profil',[UserController::class,'hapusProfil'])->name('hapus.profil');
 
     Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout');
     Route::post('/post-image', [PostController::class, 'store'])->name('post.image');
