@@ -2,7 +2,7 @@
     <div id="report-{{ $item->id }}" class="p-3 px-5 sm:p-4 bg-white shadow-md mb-4">
         <div class="flex items-center">
             <div class="flex-shrink-0">
-                <img class="w-8 h-8 rounded-full object-cover" src="{{ asset('pictures/' . $item->users->pictures) }}"
+                <img class="w-8 h-8 rounded-full object-cover" src="{{ asset('/pictures/' . $item->users->pictures) }}"
                     alt="{{ $item->username }}">
             </div>
             <div class="flex-1 min-w-0 ms-4">

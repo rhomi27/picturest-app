@@ -45,7 +45,6 @@ $(document).ready(function () {
 // like ajax js 
 
 $(document).ready(function () {
-    read()
     const isLiked = $('#like-button').data('liked');
 
     if (isLiked === true) {
@@ -176,13 +175,6 @@ function removeValidasiClass(form) {
     });
 }
 
-function read() {
-    const postId = document.getElementById("post_id").value;
-    $.get(`/comen-read/${postId}`, {}, function (data) {
-        $("#comen").html(data);
-    });
-}
-
 function showError(field, message) {
     const errorElement = $("#" + field + "-error");
     if (!message) {
@@ -192,4 +184,42 @@ function showError(field, message) {
         $("#" + field).addClass("border-red-600").removeClass("border-green-600");
         errorElement.text(message);
     }
+}
+
+
+var page = 1;
+loadMore(page);
+
+$(window).scroll(function() {
+    if ($(window).scrollTop() + $(window).height() >= ($(document).height() - 0,5)) {
+        page++;
+        loadMore(page);
+    }
+});
+
+function loadMore(page) {
+    const postId = document.getElementById("post_id").value;
+    $.ajax({
+        url: "/comen-read/"+postId+"?page="+page,
+        type: 'get',
+        dataType: 'html',
+        beforeSend: function(){
+            $('.loading')
+        },
+        success: function(data){
+            if (data.length == 0) {
+                $('.loading').html("tidak ada komen lainnya");
+                return;
+            }
+            $('.loading').hide();
+            $("#comen").append(data);
+        }
+    })
+}
+
+function read(){
+    const postId = document.getElementById("post_id").value;
+    $.get(`/comen-read/${postId}`, {}, function (data) {
+        $("#comen").html(data);
+    });
 }

@@ -69,6 +69,33 @@ class AdminController extends Controller
         }
         return view("admin.report", compact("title", "bg", ));
     }
+
+    public function searchReport(Request $request)
+    {
+        $report = Report::with(['users:id,username,pictures', 'posts:id,judul'])
+            ->whereHas('users', function ($query) use ($request) {
+                $query->where('username', 'LIKE', '%' . $request->search . '%');
+            })
+            ->orWhereHas('posts', function ($query) use ($request) {
+                $query->where('judul', 'LIKE', '%' . $request->search . '%');
+            })
+            ->orWhere('alasan', 'LIKE', '%' . $request->search . '%')
+            ->orderBy('created_at', 'desc')
+            ->paginate(7);
+
+
+        if ($report->count() >= 1) {
+            return view("admin.showReport", compact("report"));
+        } else if ($report->count() <= 1) {
+            return response()->json([
+                "status" => 400,
+                "message" => "Users tidak ditemukan"
+            ]);
+        }
+
+
+    }
+
     public function detailReport($id)
     {
         $title = "Dashboard | Detail Report";

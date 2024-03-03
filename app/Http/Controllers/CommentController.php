@@ -12,7 +12,7 @@ class CommentController extends Controller
 {
     //
     public function read($id){
-        $comen = Comment::with(['users','posts'])->where('post_id',$id)->latest()->get();
+        $comen = Comment::with(['users','posts'])->where('post_id',$id)->latest()->paginate(5);
         return view('page.posts.detail.comment.read',compact('comen'));
     }
     public function commen(Request $request,$postId){
