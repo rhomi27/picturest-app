@@ -36,7 +36,7 @@
         </div>
 
         <div class="flex flex-col items-center justify-center w-full mb-6 relative">
-            <label for="wallpaper"
+            <label for="wallpaper-id"
                 class="flex flex-col items-center z-10 justify-center w-full h-32 border-2 rounded-lg cursor-pointer bg-black bg-opacity-40 dark:hover:bg-bray-800 dark:bg-gray-700 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
                 <div class="flex flex-col items-center justify-center pt-5 pb-6">
                     <svg class="w-8 h-8 mb-4 text-white dark:text-gray-400" aria-hidden="true"
@@ -46,12 +46,12 @@
                     </svg>
                     <p class="mb-2 text-sm text-white dark:text-gray-400">Klik untuk unggah wallpaper album</p>
                 </div>
-                <input id="wallpaper" name="wallpaper" type="file" class="hidden" />
+                <input id="wallpaper-id" name="wallpaper" type="file" class="hidden" />
             </label>
-            <img id="previewWallpaper" class="w-full h-32 object-contain absolute z-0 rounded-lg hidden" src=""
-                alt="">
-            <p id="wallpaper-errors" class=" text-xs font-thin text-red-600 dark:text-red-400"></p>
+            <img id="previewWallpaper" class="w-full block h-full object-contain absolute z-0 rounded-lg hidden"
+                src="" alt="">
         </div>
+        <p id="wallpaper-id-errors" class=" text-xs font-thin text-red-600 dark:text-red-400"></p>
 
         <button type="submit"
             class="text-white mt-3 justify-center flex items-center bg-blue-700 hover:bg-blue-800 w-full focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">

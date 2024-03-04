@@ -173,7 +173,7 @@ $(document).ready(function () {
     });
 
     // create album
-    $('#wallpaper').change(function () {
+    $('#wallpaper-id').change(function () {
         var file = $(this)[0].files[0];
         var imageURL = URL.createObjectURL(file);
         $('#previewWallpaper').attr('src', imageURL);
@@ -200,9 +200,9 @@ $(document).ready(function () {
                 if (res.status == 400) {
                     showErrorAlbum('nama', res.errors.nama);
                     showErrorAlbum('deskripsi', res.errors.deskripsi);
-                    showErrorAlbum('wallpaper', res.errors.wallpaper);
+                    showErrorAlbum('wallpaper-id', res.errors.wallpaper);
                     setTimeout(function () {
-                        $("#nama-errors, #deskripsi-errors, #wallpaper-errors")
+                        $("#nama-errors, #deskripsi-errors, #wallpaper-id-errors")
                             .empty();
                     }, 3000);
                 } else if (res.status == 200) {

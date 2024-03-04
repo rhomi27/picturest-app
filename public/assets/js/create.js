@@ -59,12 +59,12 @@ $(document).ready(function() {
 
             reader.onload = (e) => {
                 $("#previewImage").attr('src', e.target.result);
-                $("#previewImage").show();
+                $("#previewImage").show('slow');
             }
             reader.readAsDataURL(this.files[0]);
         } else {
             // Kembalikan gambar ke default di sini
-            $("#previewImage").hide();
+            $("#previewImage").hide('slow');
         }
     });
 

@@ -18,9 +18,10 @@ class AlbumController extends Controller
         return view("page.album.detail-album", compact("album", "title", "bg"));
     }
 
-    public function readDetail(Request $request){
+    public function readDetail(Request $request)
+    {
         $id = $request->id;
-        $post = Post::where("album_id", $id)->where('status','aktif')->latest()->paginate(12);
+        $post = Post::where("album_id", $id)->where('status', 'aktif')->latest()->paginate(12);
         return view('page.album.read-detail', compact('post'));
     }
     public function index(Request $request)
@@ -45,12 +46,13 @@ class AlbumController extends Controller
         $validator = Validator::make($request->all(), [
             'nama' => 'required',
             'deskripsi' => 'required',
-            'wallpaper' => 'required|mimes:png,jpg,jpeg',
+            'wallpaper' => 'required|mimes:png,jpg,jpeg|image|max:5000',
         ], [
             'nama.required' => 'kolom nama harus diisi',
             'deskripsi.required' => 'kolom deskripsi harus diisi',
             'wallpaper.mimes' => 'extensi file harus png jpg jpeg',
             'wallpaper.required' => 'wallpaper harus diisi',
+            'wallpaper.max' => 'ukuran gambar harus dibawah 5 mb',
         ]);
 
         if ($validator->fails()) {
@@ -94,7 +96,7 @@ class AlbumController extends Controller
             "nama" => $album->nama,
             "deskripsi" => $album->deskripsi,
             "wallpaper" => asset('Album/' . $album->wallpaper),
-        ]); 
+        ]);
     }
 
     public function update(Request $request, $id)
@@ -102,12 +104,13 @@ class AlbumController extends Controller
         $validator = Validator::make($request->all(), [
             'nama' => 'required',
             'deskripsi' => 'required',
-            'wallpaper' => 'required|mimes:png,jpg,jpeg',
+            'wallpaper' => 'required|mimes:png,jpg,jpeg|image|max:5000',
         ], [
             'nama.required' => 'kolom nama harus diisi',
             'deskripsi.required' => 'kolom deskripsi harus diisi',
             'wallpaper.mimes' => 'extensi file harus png jpg jpeg',
-            'wallpaper.required' => 'gambar harus diisi'
+            'wallpaper.required' => 'gambar harus diisi',
+            'wallpaper.max' => 'ukuran gambar harus dibawah 5 mb',
         ]);
 
         if ($validator->fails()) {
@@ -155,16 +158,17 @@ class AlbumController extends Controller
 
         }
     }
-    
 
-    public function searchAlbum(Request $request){
-        $album = Album::where('user_id',auth()->id())
-        ->where(function ($query) use ($request){
-        $query->where("nama", "like", "%" . $request->search_string . "%")
-        ->orWhere("deskripsi","like", "%" . $request->search_string . "%");
-        })
-        ->orderBy('id', 'desc')
-        ->get();
+
+    public function searchAlbum(Request $request)
+    {
+        $album = Album::where('user_id', auth()->id())
+            ->where(function ($query) use ($request) {
+                $query->where("nama", "like", "%" . $request->search_string . "%")
+                    ->orWhere("deskripsi", "like", "%" . $request->search_string . "%");
+            })
+            ->orderBy('id', 'desc')
+            ->get();
 
         if ($album->count() >= 1) {
             return view('page.album.read', compact('album'));
@@ -176,7 +180,8 @@ class AlbumController extends Controller
         }
     }
 
-    public function searchImage(Request $request, $id){
+    public function searchImage(Request $request, $id)
+    {
         $post = Post::where('status', 'aktif')
             ->where('album_id', $id)
             ->where(function ($query) use ($request) {
@@ -203,7 +208,7 @@ class AlbumController extends Controller
     {
         $album = Album::find($id);
         $namaFile = $album->wallpaper;
-        $lokasi = public_path('Album/'.$namaFile);
+        $lokasi = public_path('Album/' . $namaFile);
         if (file_exists($lokasi)) {
             unlink($lokasi);
         }

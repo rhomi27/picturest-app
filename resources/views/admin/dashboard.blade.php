@@ -13,7 +13,7 @@
         </div>
     </div>
 @endsection
-@section('script')
+@push('scripts')
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         $(document).ready(function() {
@@ -68,4 +68,4 @@
             }
         })
     </script>
-@endsection
+@endpush
