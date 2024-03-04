@@ -21,19 +21,19 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
 
         $data = [
-        'username' => 'admin',
+        'username' => 'Picturest',
         'alamat' => 'banjar',
-        'nama_lengkap' => 'admin slepet',
+        'nama_lengkap' => 'Picturest',
         'pictures'=> 'user.jpg',
-        'bio' => 'no bio yet',
+        'bio' => 'apa lu liat liat',
         'jenis_kelamin' => 'Pria',
         'role' => 'admin',
-        'email' => 'admin@gmail.com',
-        'password' => bcrypt('admin123'),
+        'email' => 'picturest@gmail.com',
+        'password' => bcrypt('picturest123'),
         ];
-        // User::create($data);
+        User::create($data);
         User::factory(20)->create();
-        // Post::factory(100)->create();
-        // Album::factory(20)->create();
+        Post::factory(100)->create();
+        Album::factory(20)->create();
     }
 }
