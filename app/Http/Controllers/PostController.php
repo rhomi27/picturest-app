@@ -55,14 +55,11 @@ class PostController extends Controller
   {
     try {
       $bg = "white";
-      $data = Post::with('comments', 'likes')->where('status', 'aktif')->find($id);
-      $user = User::where('id', $data->user_id)->first();
-      $like = Like::with(['users', 'posts'])->where('post_id', $id)->get();
-      $postUser = Post::where('user_id', $user->id)->where('status', 'aktif')->get();
+      $data = Post::with('comments','likes','users')->where('status', 'aktif')->find($id);
+      $postUser = Post::where('user_id', $data->users->id)->where('status', 'aktif')->get();
       $title = "Picturest | Detail-$data->judul";
       $navTitle = "Detail Postingan";
-      return view("page.posts.detail", compact("bg", "title", "navTitle", "data", "user", "like", "postUser"));
-      //code...
+      return view("page.posts.detail", compact("bg", "title", "navTitle", "data", "postUser"));
     } catch (\Throwable $th) {
       return view("error-handling.404");
     }

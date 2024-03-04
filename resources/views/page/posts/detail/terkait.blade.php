@@ -7,7 +7,7 @@
                 alt="" />
         @endforeach
         @if ($postUser->count() > 2)
-            <a class="bg-blue-400 rounded-full p-2 shadow-md" href="/profil-user/{{ $user->id }}">
+            <a class="bg-blue-400 rounded-full p-2 shadow-md" href="/profil-user/{{ $data->users->id }}">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-5 h-5 text-white" id="Layer_1"
                     data-name="Layer 1" viewBox="0 0 24 24">
                     <path
