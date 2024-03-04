@@ -41,8 +41,8 @@
                                     class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 border border-blue-300 focus:ring-blue-500 focus:border-blue-500 "
                                     placeholder="Kirimkan Komentar" />
                                 <button type="submit"
-                                    class=" top-0 right-0 px-5 h-full text-sm font-medium text-white bg-gray-50 border-l-0 rounded-e-lg border border-blue-300 focus:ring-4 focus:outline-none focus:ring-blue-500">
-                                    <svg class="w-4 h-4 m-auto text-black" stroke="currentColor" aria-hidden="true"
+                                    class=" top-0 right-0 px-5 h-full text-sm font-medium text-white bg-blue-400 border-l-0 rounded-e-lg border border-blue-300 focus:ring-4 focus:outline-none focus:ring-blue-500">
+                                    <svg class="w-4 h-4 m-auto text-blue-900" stroke="currentColor" aria-hidden="true"
                                         xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                         <path
                                             d="m3.539.26l-.038-.02C2.565-.194,1.481-.025.738.671.041,1.323-.182,2.273.187,3.217l4.933,8.785L.247,20.853c-.337.879-.111,1.829.587,2.479.465.434,1.062.661,1.68.661.374,0,.755-.083,1.121-.254l20.368-11.74L3.539.26ZM1.09,2.792c-.192-.498-.068-1.018.331-1.391.229-.214.594-.4,1.018-.4.197,0,.407.041.622.138l18.063,10.361H5.985L1.09,2.792Zm2.084,20.061c-.562.262-1.212.163-1.658-.252-.4-.373-.525-.893-.364-1.328l4.837-8.772h15.144L3.174,22.853Z" />
@@ -54,6 +54,7 @@
                     </form>
                 @endif
             @else
+            <input type="hidden" name="post_id" id="post_id" value="{{ $data->id }}">
                 <div class="border w-full h-full bg-white shadow-md text-center p-3">
                     <a class=" text-blue-600 hover:underline p-2" href="/#login">Silahkan Login untuk menambahkan
                         komentar</a>

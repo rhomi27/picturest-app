@@ -13,7 +13,7 @@
         </div>
     </div>
 @endsection
-@section('script')
+@push('scripts')
     <script>
         var EndPoint = "/search-tamu";
         var page = 1;
@@ -84,4 +84,4 @@
             })
         })
     </script>
-@endsection
+@endpush

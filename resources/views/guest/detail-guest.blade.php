@@ -88,50 +88,40 @@
     </section>
     @include('page.posts.detail.comment.comment')
 @endsection
-@section('script')
+@push('scripts')
     <script>
-        function read() {
-            $.get("/comen-read-tamu/{{ $data->id }}", {}, function(data) {
-                $("#comen").html(data);
-            });
+        $(document).ready(function(){
+    loadMore(page);
+});
+
+var page = 1;
+
+
+$(window).scroll(function () {
+    if ($(window).scrollTop() + $(window).height() >= ($(document).height() -1)) {
+        page++;
+        loadMore(page);
+    }
+});
+
+function loadMore(page) {
+    const postId = document.getElementById("post_id").value;
+    $.ajax({
+        url: "/comen-read-tamu/" + postId + "?page=" + page,
+        type: 'get',
+        dataType: 'html',
+        beforeSend: function () {
+            $('.loading')
+        },
+        success: function (data) {
+            if (data.length == 0) {
+                $('.loading').html("tidak ada komen lainnya");
+                return;
+            }
+            $('.loading').hide();
+            $("#comen").append(data);
         }
-
-        $(document).ready(function() {
-            read()
-        })
-        // $("#formCommen").submit(function(e) {
-        //     e.preventDefault();
-        //     const postId = document.getElementById("post_id").value;
-        //     const comenUrl = `/comen-post/${postId}`
-        //     var formData = new FormData(this);
-        //     $.ajaxSetup({
-        //         headers: {
-        //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        //         },
-        //         contentType: false,
-        //         processData: false,
-        //     });
-
-        //     $.ajax({
-        //         url: comenUrl,
-        //         type: "post",
-        //         data: formData,
-        //         success: function(res) {
-        //             if (res.status == 400) {
-        //                 showError('isi_komen', res.errors.isi_komen);
-        //                 setTimeout(function() {
-        //                     $("#isi_komen-error")
-        //                         .empty();
-        //                 }, 2000);
-        //             } else if (res.status == 200) {
-        //                 $("#formCommen")[0].reset();
-        //                 removeValidasiClass('#formCommen')
-        //                 read()
-        //             }
-        //         },
-        //         error: function(err) {
-        //         }
-        //     });
-        // });
+    })
+}
     </script>
-@endsection
+@endpush
