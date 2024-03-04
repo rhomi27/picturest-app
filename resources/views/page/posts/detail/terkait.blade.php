@@ -1,4 +1,4 @@
-<div class="w-full p-2 h-full">
+<div data-aos="fade-up" class="w-full p-2 h-full">
     <h1 class="bg-white w-full shadow-md p-2 text-center">Postingan terkait pengguna</h1>
     <div class="hide-scrollbar mt-3 flex items-center max-w-full max-h-64 gap-3 overflow-x-scroll overflow-y-hidden">
         @foreach ($postUser->take(2) as $item)

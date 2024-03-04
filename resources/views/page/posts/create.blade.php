@@ -3,7 +3,7 @@
     @include('layout.navbar.nav2')
     @include('layout.modal.modal1')
     <div class="container mx-auto mt-10 p-5">
-        <div
+        <div data-aos="fade-down"
             class="mx-auto w-full md:w-full xl:w-3/4 h-full border border-gray-200 bg-white rounded-md drop-shadow-md sm:px-5">
             <form id="createForm" enctype="multipart/form-data" method="post"
                 class="grid grid-cols-1 md:grid-cols-2 gap-4 gap-x-5 mb-5 p-3 px-5">

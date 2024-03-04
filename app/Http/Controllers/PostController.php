@@ -29,6 +29,22 @@ class PostController extends Controller
     return view("page.posts.home", compact("bg", "title", "post"));
   }
 
+  public function mengikuti(Request $request)
+  {
+    $bg = "white";
+    $title = "Picturest | Mengikuti";
+    $user = auth()->user();
+    $following = $user->following()->pluck('following_id');
+    $post = Post::whereIn('user_id', $following)->where('status', 'aktif')->latest()->paginate(12);
+    $data = '';
+    if ($request->ajax()) {
+      $data .= view("page.posts.read", compact("post"));
+
+      return $data;
+    }
+    return view("page.posts.mengikuti", compact("bg", "title", "post"));
+  }
+
   public function searchImage(Request $request)
   {
     $post = Post::where('status', 'aktif')
@@ -40,6 +56,28 @@ class PostController extends Controller
       ->orderBy('id', 'desc')
       ->paginate(16);
 
+    if ($post->count() >= 1) {
+      return view('page.posts.read', compact('post'));
+    } else if ($post->count() <= 1) {
+      return response()->json([
+        'status' => 400,
+        'pesan' => "Data tidak ditemukan"
+      ]);
+    }
+  }
+
+  public function searchImageMengikuti(Request $request)
+  {
+    $user = auth()->user();
+    $following = $user->following()->pluck('following_id');
+    $post = Post::whereIn('user_id', $following)->where('status', 'aktif')
+      ->where(function ($query) use ($request) {
+        $query->where("judul", "like", "%" . $request->search_string . "%")
+          ->orWhere("deskripsi", "like", "%" . $request->search_string . "%")
+          ->orWhere("tag", "like", "%" . $request->search_string . "%");
+      })
+      ->orderBy('id', 'desc')
+      ->paginate(10);
 
     if ($post->count() >= 1) {
       return view('page.posts.read', compact('post'));
@@ -55,7 +93,7 @@ class PostController extends Controller
   {
     try {
       $bg = "white";
-      $data = Post::with('comments','likes','users')->where('status', 'aktif')->find($id);
+      $data = Post::with('comments', 'likes', 'users')->where('status', 'aktif')->find($id);
       $postUser = Post::where('user_id', $data->users->id)->where('status', 'aktif')->get();
       $title = "Picturest | Detail-$data->judul";
       $navTitle = "Detail Postingan";
@@ -79,13 +117,14 @@ class PostController extends Controller
       'judul' => 'required',
       'deskripsi' => 'required',
       'tag' => 'required',
-      'file' => 'required|mimes:png,jpg,jpeg',
+      'file' => 'required|mimes:png,jpg,jpeg|image|max:5000',
     ], [
       'judul.required' => 'kolom judul harus diisi',
       'deskripsi.required' => 'kolom deskripsi harus diisi',
       'tag.required' => 'kolom tag harus diisi',
       'file.required' => 'gambar harus diisi',
       'file.mimes' => 'extensi file harus png jpg jpeg',
+      'file.max' =>   'gambar tidak boleh lebih dari 5 mb'
     ]);
 
     if ($validator->fails()) {
@@ -125,9 +164,9 @@ class PostController extends Controller
     $navTitle = "Edit Postingan";
     $post = Post::with(['albums'])->where('status', 'aktif')->find($id);
     $album = Album::where("user_id", auth()->user()->id)->get();
-    if($post->user_id == auth()->id()){
+    if ($post->user_id == auth()->id()) {
       return view("page.edit-post", compact("post", "album", "title", "bg", "navTitle"));
-    }else{
+    } else {
       return view('error-handling.404');
     }
   }

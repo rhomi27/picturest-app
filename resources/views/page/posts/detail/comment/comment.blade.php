@@ -1,6 +1,6 @@
 <section id="comment">
     <div class="container mx-auto p-5 w-full md:w-3/4">
-        <div class="mt-3 drop-shadow-sm border border-gray-400 rounded-md p-5">
+        <div data-aos="fade-up" class="mt-3 drop-shadow-sm border border-gray-400 rounded-md p-5">
             <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
                 Komentar
             </h3>

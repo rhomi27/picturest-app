@@ -3,7 +3,7 @@
 @include('layout.navbar.nav2')
     <section>
         <div class="container mx-auto mt-5 p-5">
-            <div class="mx-auto border border-gray bg-white drop-shadow-lg p-5 rounded-md w-full md:w-full xl:w-3/4">
+            <div data-aos="fade-down" class="mx-auto border border-gray bg-white drop-shadow-lg p-5 rounded-md w-full md:w-full xl:w-3/4">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div class="grid">
                         <img class="w-full h-80 object-cover shadow-lg rounded-md"

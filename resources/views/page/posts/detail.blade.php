@@ -6,11 +6,11 @@
     <section id="foto">
         <div class="container mx-auto p-5 w-full md:w-3/4">
             <div class="grid grid-cols-1 gap-4 sm:grid-cols-1 md:grid-cols-2 mt-10">
-                <div class="w-full max-h-[560px] bg-white drop-shadow-md rounded-md">
+                <div data-aos="fade-right" class="w-full max-h-[560px] bg-white drop-shadow-md rounded-md">
                     <img class="w-full h-full object-contain" src="{{ asset('imagePost/' . $data->file) }}" alt="gambar" />
                 </div>
                 <div>
-                    <div class="w-full max-h-full border border-gray-300 bg-white shadow-md p-4">
+                    <div data-aos="fade-left" class="w-full max-h-full border border-gray-300 bg-white shadow-md p-4">
                         <div class="flex justify-between items-center">
                             @if (auth()->check() && $data->users->id === auth()->id())
                                 <!-- Jika pengguna yang sedang login adalah pemiliknya -->
@@ -41,7 +41,8 @@
                                 </a>
                             @endif
                             @if (auth()->check() && $data->user_id !== auth()->id())
-                                <button class="scale-100 hover:scale-105" id="follow-btn" data-user-id="{{ $data->users->id }}"
+                                <button class="scale-100 hover:scale-105" id="follow-btn"
+                                    data-user-id="{{ $data->users->id }}"
                                     data-follow="{{ Auth::user()->following()->where('following_id', $data->users->id)->first() }}">
                                     <span id="notfollow"
                                         class="bg-red-600 p-1 rounded-lg text-white px-2 drop-shadow-lg ">Follow</span>

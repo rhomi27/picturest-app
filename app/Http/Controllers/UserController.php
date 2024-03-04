@@ -89,10 +89,11 @@ class UserController extends Controller
     {
 
         $validator = Validator::make($request->all(), [
-            'pictures' => 'mimes:png,jpg,jpeg',
+            'pictures' => 'mimes:png,jpg,jpeg|image|max:5000',
             'username' => 'required',
         ], [
             'pictures.mimes' => 'extensi gambar harus png jpg jpeg',
+            'pictures.max'=> 'ukuran gambar tidak boleh lebih dari 5 mb',
             'username.required' => 'username tidak boleh kosong',
         ]);
         if ($validator->fails()) {

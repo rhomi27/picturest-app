@@ -4,14 +4,14 @@
     @include('layout.bottom-nav')
     <nav class="bg-white bg-opacity-50 backdrop-blur-sm sticky w-full z-20 top-14 start-0 drop-shadow-md">
         <div class="flex justify-center gap-x-10 items-center p-1">
-          <a class="text-sm text-blue-950 p-2 font-bold border-b-2 border-b-blue-950" href="/home">Semua</a>
-          <a class="text-sm font-semibold p-2 text-gray-800" href="/mengikuti">Mengikuti</a>
+            <a class="text-sm font-semibold text-gray-800 p-2" href="/home">Semua</a>
+            <a class="text-sm text-blue-950 font-bold border-b-2 p-2 border-b-blue-950" href="/mengikuti">Mengikuti</a>
         </div>
-      </nav>
+    </nav>
 
     <div class="container mt-3 mx-auto">
         <div class="p-5 mb-28 mx-auto max-w-screen-xl">
-            <div id="data-wrap"
+            <div id="data-mengikuti"
                 class="mb-5 columns-2 gap-2 sm:gap-2 md:gap-3 lg:gap-4 sm:columns-2 md:columns-4 lg:columns-5 [&>figure:not(:first-child)]:mt-2 md:[&>figure:not(:first-child)]:mt-2">
 
             </div>
@@ -22,6 +22,5 @@
     </div>
 @endsection
 @push('scripts')
-<script src="{{ asset('assets/js/home.js') }}"></script>
+    <script src="{{ asset('assets/js/mengikuti.js') }}"></script>
 @endpush
-

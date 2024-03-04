@@ -39,6 +39,7 @@ Route::middleware(['isTamu'])->group(function () {
 
 Route::middleware(['isLogin', 'IsUser'])->group(function () {
     Route::get('/home', [PostController::class, 'index'])->name('view.post');
+    Route::get('/mengikuti',[PostController::class,'mengikuti'])->name('mengikuti');
     Route::get('/albums', [AlbumController::class, 'index'])->name('view.album');
     Route::get('/detail-album/{id}', [AlbumController::class, 'albumDetail'])->name('detail.album');
     Route::get('/read-detail-album', [AlbumController::class, 'readDetail'])->name('read.detail.album');
@@ -63,16 +64,21 @@ Route::middleware(['isLogin', 'IsUser'])->group(function () {
     Route::get('/followers/{id}', [FollowController::class, 'followers'])->name('user.followers');
     Route::get('/following/{id}', [FollowController::class, 'following'])->name('user.following');
     Route::get('/count-notif', [ViewController::class, 'countNotif'])->name('count.notif');
+
     Route::get('/search-image', [PostController::class, 'searchImage'])->name('search.image');
+    Route::get('/search-image-mengikuti', [PostController::class, 'searchImageMengikuti'])->name('search.image');
     Route::get('/delete-post/{id}', [PostController::class, 'destroy'])->name('delete.post');
-    Route::get('/delete-album/{id}', [AlbumController::class, 'delete'])->name('delete.album');
+
     Route::get('/delete-all-notif', [ViewController::class, 'deleteAll'])->name('deleteall.notif');
     Route::get('/delete/{id}', [ViewController::class, 'delete'])->name('delete.notif');
-    Route::get('/help-auth', [InboxController::class, 'helpAuth'])->name('help.auth');
-    Route::post('/delete-history', [UserController::class, 'deleteHistory'])->name('delete.history');
+
+    Route::get('/delete-album/{id}', [AlbumController::class, 'delete'])->name('delete.album');
     Route::get('/search-album', [AlbumController::class, 'searchAlbum'])->name('search.album');
     Route::get('/search-image-album/{id}', [AlbumController::class, 'searchImage'])->name('search.image.album');
+
+    Route::post('/delete-history', [UserController::class, 'deleteHistory'])->name('delete.history');
     Route::get('/hapus-profil',[UserController::class,'hapusProfil'])->name('hapus.profil');
+    Route::get('/help-auth', [InboxController::class, 'helpAuth'])->name('help.auth');
 
     Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout');
     Route::post('/post-image', [PostController::class, 'store'])->name('post.image');
