@@ -1,7 +1,7 @@
 @extends('layout.master')
 @section('content')
     <div class="container mx-auto p-5">
-        <div class="max-w-screen-lg mx-auto bg-white rounded-lg shadow-md overflow-hidden">
+        <div data-aos="fade-up" class="max-w-screen-lg mx-auto bg-white rounded-lg shadow-md overflow-hidden">
             <!-- Header -->
             <div class="bg-blue-700 px-4 py-2 flex justify-between items-center">
                 <h1 class="text-base font-semibold text-white">Detail Laporan</h1>

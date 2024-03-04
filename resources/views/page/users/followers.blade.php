@@ -32,14 +32,14 @@
                         </div>
                     @endforeach
                 @else
-                    <div class="text-gray-500 text-center">User tidak memiliki pengikut.</div>
+                    <div class="text-gray-500 text-center text-xs">User tidak memiliki pengikut.</div>
                 @endif
             </div>
         </div>
     </section>
 @endsection
 @push('scripts')
-<script src="{{ asset('assets/js/follow.js') }}"></script>
+    <script src="{{ asset('assets/js/follow.js') }}"></script>
 @endpush
 {{-- @section('script')
     <script>

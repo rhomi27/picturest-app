@@ -1,7 +1,7 @@
 @extends('layout.master')
 @section('content')
 <div class="container p-5">
-    <div
+    <div data-aos="fade-up"
         class="mx-auto translate-y-1/2 p-5 bg-white max-w-[400px] h-96 drop-shadow-lg border rounded-md border-blue-200">
         <h1 class="text-center text-2xl font-mono mb-10">Login Admin Picturest</h1>
         <div class="w-full p-5">

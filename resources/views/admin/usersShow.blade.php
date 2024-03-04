@@ -1,5 +1,5 @@
 @foreach ($user as $item)
-    <div
+    <div data-aos="fade-up"
         class="w-full bg-white border border-gray-200 rounded-lg pt-4 shadow dark:bg-gray-800 dark:border-gray-700 mb-4">
         <div class="flex flex-col items-center pb-10">
             <img class="w-24 h-24 mb-3 object-cover rounded-full shadow-lg"

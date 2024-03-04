@@ -5,7 +5,7 @@
         <div class="container mx-auto p-2">
             <div class="grid grid-cols-1 gap-6">
                 <!-- Grafik Pengguna yang Melakukan Pelaporan -->
-                <div class="border border-gray-200 rounded-sm bg-white p-4 shadow-md">
+                <div data-aos="fade-up" class="border border-gray-200 rounded-sm bg-white p-4 shadow-md">
                     <h2 class="text-lg font-semibold mb-4">Laporan Masuk</h2>
                     <canvas class="w-full" id="reportsChart" height="200"></canvas>
                 </div>

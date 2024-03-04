@@ -21,6 +21,13 @@
             width: 0px;
             /* Lebar scrollbar */
         }
+
+        .small-alert {
+            width: 300px;
+            height: auto;
+            font-size: 14px;
+            /* Sesuaikan dengan ukuran font yang diinginkan */
+        }
     </style>
 </head>
 
@@ -60,12 +67,13 @@
                 title: "",
                 text: "{{ session('error') }}",
                 icon: "error"
+                
             });
         @endif
     </script>
     <script>
         AOS.init();
-        
+
         $(document).ready(function() {
             $('a[href^="#"]').on('click', function(event) {
                 // Pastikan hash telah diset

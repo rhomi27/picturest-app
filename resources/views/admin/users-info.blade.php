@@ -1,6 +1,6 @@
 @extends('layout.master')
 @section('content')
-<div class="container mx-auto p-5">
+<div data-aos="fade-up" class="container mx-auto p-5">
     <!-- Profile Card -->
     <div class="max-w-screen-lg p-3 mx-auto bg-white rounded-lg shadow-md overflow-hidden mb-5">
         <!-- Header -->
