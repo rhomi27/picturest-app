@@ -52,6 +52,7 @@ class AlbumController extends Controller
             'deskripsi.required' => 'kolom deskripsi harus diisi',
             'wallpaper.mimes' => 'extensi file harus png jpg jpeg',
             'wallpaper.required' => 'wallpaper harus diisi',
+            'wallpaper.image'=> 'wallpaper harus berbentuk gambar',
             'wallpaper.max' => 'ukuran gambar harus dibawah 5 mb',
         ]);
 
@@ -110,6 +111,7 @@ class AlbumController extends Controller
             'deskripsi.required' => 'kolom deskripsi harus diisi',
             'wallpaper.mimes' => 'extensi file harus png jpg jpeg',
             'wallpaper.required' => 'gambar harus diisi',
+            'wallpaper.image'=> 'wallpaper harus berbentuk gambar',
             'wallpaper.max' => 'ukuran gambar harus dibawah 5 mb',
         ]);
 

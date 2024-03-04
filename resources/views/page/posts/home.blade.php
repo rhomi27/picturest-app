@@ -4,10 +4,11 @@
     @include('layout.bottom-nav')
     <nav class="bg-white bg-opacity-50 backdrop-blur-sm sticky w-full z-20 top-14 start-0 drop-shadow-md">
         <div class="flex justify-center gap-x-10 items-center p-1">
-          <a class="text-sm text-blue-950 p-2 font-bold border-b-2 border-b-blue-950" href="/home">Semua</a>
-          <a class="text-sm font-semibold p-2 text-gray-800" href="/mengikuti">Mengikuti</a>
+            <a id="post" data-count="{{ $post->count()}}"
+                class="text-sm text-blue-950 p-2 font-bold border-b-2 border-b-blue-950" href="/home">Semua</a>
+            <a class="text-sm font-semibold p-2 text-gray-800" href="/mengikuti">Mengikuti</a>
         </div>
-      </nav>
+    </nav>
 
     <div class="container mt-3 mx-auto">
         <div class="p-5 mb-28 mx-auto max-w-screen-xl">
@@ -22,6 +23,5 @@
     </div>
 @endsection
 @push('scripts')
-<script src="{{ asset('assets/js/home.js') }}"></script>
+    <script src="{{ asset('assets/js/home.js') }}"></script>
 @endpush
-

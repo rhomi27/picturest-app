@@ -79,7 +79,7 @@ function showErrorAlbum(field, message) {
 }
 $(document).ready(function () {
     $('#close-modal').on('click', function () {
-        $('#update-modal').hide('slow');
+        $('#update-modal').fadeOut();
     });
 
     // delete album
@@ -119,11 +119,11 @@ $(document).ready(function () {
     // show update album
     $('#album').on('click', '.open-modal', function () {
         var id = $(this).data('id');
+        $('#update-modal').fadeIn()
         $.ajax({
             url: '/edit-album/' + id,
             type: 'get',
             success: function (res) {
-                $('#update-modal').show('slow');
                 $('#id').val(res.id);
                 $('#nama').val(res.nama);
                 $('#deskripsi').val(res.deskripsi);
@@ -159,12 +159,20 @@ $(document).ready(function () {
                 if (res.status == 400) {
                     errUpdate('nama', res.errors.nama)
                     errUpdate('deskripsi', res.errors.deskripsi)
-                    errUpdate('wallpaper', res.errors.wallpaper)
+                    errUpdate('wallpaperupdate', res.errors.wallpaper)
+                    setTimeout(function () {
+                        $("#nama-error, #deskripsi-error, #wallpaperupdate-error")
+                            .empty();
+                    }, 3000);
                 } else if (res.status == 404) {
                     showMessageAlbum('errorr', res.message)
                 } else if (res.status == 200) {
-                    $('#update-modal').hide('slow'),
-                        read()
+                    $('#update-modal').animate({
+                        opacity: 0
+                    }, function () {
+                        $('#update-modal').hide()
+                    });
+                    read()
                     removeValidasiClass('#updateForm')
                     showMessageAlbum('success', res.message)
                 }
@@ -196,7 +204,7 @@ $(document).ready(function () {
             type: "post",
             data: dataForm,
             success: function (res) {
-                
+
                 if (res.status == 400) {
                     showErrorAlbum('nama', res.errors.nama);
                     showErrorAlbum('deskripsi', res.errors.deskripsi);

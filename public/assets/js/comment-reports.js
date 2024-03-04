@@ -1,4 +1,4 @@
-$(document).ready(function(){
+$(document).ready(function () {
     loadMore(page);
 });
 
@@ -6,11 +6,12 @@ var page = 1;
 
 
 $(window).scroll(function () {
-    if ($(window).scrollTop() + $(window).height() >= ($(document).height() -1)) {
+    if ($(window).scrollTop() + $(window).height() >= ($(document).height() - 1)) {
         page++;
         loadMore(page);
     }
 });
+var commentCount = parseInt(document.getElementById("comenCount").innerText);
 
 function loadMore(page) {
     const postId = document.getElementById("post_id").value;
@@ -19,15 +20,22 @@ function loadMore(page) {
         type: 'get',
         dataType: 'html',
         beforeSend: function () {
-            $('.loading')
+            $('#loading').show()
         },
         success: function (data) {
-            if (data.length == 0) {
-                $('.loading').html("tidak ada komen lainnya");
-                return;
+
+            if (commentCount <= 0) {
+                $('#loading').html("tidak ada komen");
+            } else {
+                // Lakukan sesuatu jika ada komentar
+                if (data.length <= 0) {
+                    $('#loading').html("tidak ada komen lainnya");
+                    return;
+                }
+                $('#loading').hide();
+                $("#comen").append(data);
             }
-            $('.loading').hide();
-            $("#comen").append(data);
+
         }
     })
 }

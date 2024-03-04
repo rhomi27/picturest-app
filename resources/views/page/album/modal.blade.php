@@ -26,7 +26,7 @@
                     <input type="text" id="nama" name="nama"
                         class="bg-gray-50 border placeholder-slate-300 border-blue-200 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         placeholder="ubah judul album" />
-                    <p id="nama-error" class="mt-2 text-lg font-thin text-red-600 dark:text-red-400"></p>
+                    <p id="nama-error" class="mt-2 text-xs font-thin text-red-600 dark:text-red-400"></p>
                 </div>
                 <div class="mb-4">
                     <label for="deskripsi"
@@ -34,7 +34,7 @@
                     <textarea id="deskripsi" rows="3" name="deskripsi"
                         class="block p-2 placeholder-slate-300 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         placeholder="ubah deskripsi album"></textarea>
-                    <p id="deskripsi-error" class="mt-2 text-lg font-thin text-red-600 dark:text-red-400"></p>
+                    <p id="deskripsi-error" class="mt-2 text-xs font-thin text-red-600 dark:text-red-400"></p>
                 </div>
                 <div class="flex items-center justify-center w-full h-full mt-1 relative mb-4">
                     <label for="wallpaperupdate"
@@ -54,7 +54,7 @@
                     </label>
                     <img id="preview" src="#" class="w-full h-40 object-cover z-0 absolute rounded-md" alt="">
                 </div>
-                <p id="updateWallpaper-error" class="mt-2 text-lg font-thin text-red-600 dark:text-red-400"></p>
+                <p id="wallpaperupdate-error" class="mt-2 text-xs font-thin text-red-600 dark:text-red-400"></p>
                 <input type="hidden" name="id" id="id">
                 <button type="submit"
                     class="text-white mt-3 justify-center flex items-center bg-blue-700 hover:bg-blue-800 w-full focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">

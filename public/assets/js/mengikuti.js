@@ -9,6 +9,7 @@ $(window).scroll(function () {
     }
 });
 
+var countPost = $('#post').data('count');
 function LoadMore(page) {
     $.ajax({
         url: EndPoint + "?page=" + page,
@@ -19,12 +20,16 @@ function LoadMore(page) {
         }
     })
         .done(function (data) {
-            if (data.length == 0) {
-                $('.loader').html("tidak ada data lainnya");
-                return;
+            if(countPost == 0){
+                $('.loader').html("Tidak ada postingan")
+            }else{
+                if (data.length <= 0) {
+                    $('.loader').html("Tidak ada postingan lainnya");
+                    return;
+                }
+                $('.loader').hide();
+                $("#data-mengikuti").append(data);
             }
-            $('.loader').hide();
-            $("#data-mengikuti").append(data);
         })
         .fail(function (jqXHR, ajaxOptions, thrownError) {
             console.log('server error');
@@ -46,7 +51,6 @@ function handleSearch() {
         },
         success: function (res) {
             $('#data-mengikuti').html(res);
-            $('.loader').html("tidak ada data lainnya");
             if (res.status == 400) {
                 $('.loader').html(res.pesan);
             }

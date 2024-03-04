@@ -29,7 +29,7 @@
             </div>
         </div>
         <div class="w-full h-full bg-gray-100 mt-4 p-1 drop-shadow-md px-5">
-            <h1 class="text-sm text-black">Postingan saya</h1>
+            <h1 id="post" data-count="{{ $post->count() }}" class="text-sm text-black">Postingan saya</h1>
         </div>
 
         <div class="container mt-3 mx-auto">
@@ -38,9 +38,9 @@
                     class="columns-2 gap-2 sm:gap-2 md:gap-3 lg:gap-4 sm:columns-2 md:columns-4 lg:columns-5 [&>figure:not(:first-child)]:mt-2 md:[&>figure:not(:first-child)]:mt-2">
 
                 </div>
-            </div>
-            <div class="loader flex justify-center items-center">
-                <img class="w-8 h-8" src="{{ asset('assets/img/loading.gif') }}" alt="hehe">
+                <div class="loader flex justify-center items-center">
+                    <img class="w-8 h-8" src="{{ asset('assets/img/loading.gif') }}" alt="hehe">
+                </div>
             </div>
         </div>
     </section>

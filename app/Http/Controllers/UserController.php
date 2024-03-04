@@ -64,8 +64,6 @@ class UserController extends Controller
         $p = 'p-1';
         $title = "Picturest | Profil";
         $user = auth()->user();
-        $follower = $user->followers()->get();
-        $following = $user->following()->get();
         $post = Post::where('user_id', auth()->user()->id)->where('status', 'aktif')->latest()->paginate(12);
         $data = '';
         if ($request->ajax()) {
@@ -74,7 +72,7 @@ class UserController extends Controller
         }
         return view(
             "page.users.profil",
-            compact("bg", "user", "title", "post", "class", "p", "follower", "following")
+            compact("bg", "user", "title", "post", "class", "p")
         );
     }
     public function showEdit()

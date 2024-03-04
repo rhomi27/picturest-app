@@ -44,10 +44,25 @@
                                 <button class="scale-100 hover:scale-105" id="follow-btn"
                                     data-user-id="{{ $data->users->id }}"
                                     data-follow="{{ Auth::user()->following()->where('following_id', $data->users->id)->first() }}">
-                                    <span id="notfollow"
-                                        class="bg-red-600 p-1 rounded-lg text-white px-2 drop-shadow-lg ">Follow</span>
-                                    <span id="followed"
-                                        class="bg-gray-300 p-1 hidden rounded-lg text-black px-2 drop-shadow-lg ">Unfollow</span>
+                                    <svg id="notfollow" class="w-8 h-8 p-2 text-white bg-red-500 rounded-md px-2 drop-shadow-lg"
+                                        fill="currentColor" xmlns="http://www.w3.org/2000/svg"
+                                        xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512">
+                                        <g>
+                                            <path
+                                                d="M490.667,234.667H448V192c0-11.782-9.551-21.333-21.333-21.333c-11.782,0-21.333,9.551-21.333,21.333v42.667h-42.667   c-11.782,0-21.333,9.551-21.333,21.333c0,11.782,9.551,21.333,21.333,21.333h42.667V320c0,11.782,9.551,21.333,21.333,21.333   c11.782,0,21.333-9.551,21.333-21.333v-42.667h42.667c11.782,0,21.333-9.551,21.333-21.333   C512,244.218,502.449,234.667,490.667,234.667z" />
+                                            <circle cx="192" cy="128" r="128" />
+                                            <path
+                                                d="M192,298.667c-105.99,0.118-191.882,86.01-192,192C0,502.449,9.551,512,21.333,512h341.333   c11.782,0,21.333-9.551,21.333-21.333C383.882,384.677,297.99,298.784,192,298.667z" />
+                                        </g>
+                                    </svg>
+                                    <span 
+                                        class="">
+                                        <svg id="followed" class="bg-gray-300 w-8 h-8 p-2 hidden rounded-lg text-black px-2 drop-shadow-lg " viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+                                        data-name="Layer 1">
+                                        <path
+                                            d="m24 12a1 1 0 0 1 -1 1h-6a1 1 0 0 1 0-2h6a1 1 0 0 1 1 1zm-15 0a6 6 0 1 0 -6-6 6.006 6.006 0 0 0 6 6zm0 2a9.01 9.01 0 0 0 -9 9 1 1 0 0 0 1 1h16a1 1 0 0 0 1-1 9.01 9.01 0 0 0 -9-9z" />
+                                    </svg>
+                                    </span>
                                 </button>
                             @endif
                         </div>

@@ -61,10 +61,10 @@
                 </div>
             @endauth
 
-            <div id="comen" class="mt-5">
-                <div class="loading flex justify-center items-center">
-                    <img class="w-8 h-8" src="{{ asset('assets/img/loading.gif') }}" alt="hehe">
-                </div>
+            <div id="comen" class="mt-5 w-full">
+            </div>
+            <div id="loading" class="loading flex justify-center items-center">
+                <img class="w-8 h-8" src="{{ asset('assets/img/loading.gif') }}" alt="hehe">
             </div>
         </div>
     </div>
