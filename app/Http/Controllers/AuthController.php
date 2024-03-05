@@ -16,11 +16,12 @@ class AuthController extends Controller
     public function daftar(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'username' => 'required',
+            'username' => 'required|max:20',
             'email' => 'required|email:filter|unique:users',
             'password' => 'required|min:6',
         ], [
             'username.required' => 'username harus diisi',
+            'username.max' => 'username tidak boleh lebih dari 20',
             'email.required' => 'email harus diisi',
             'email.email' => 'format email harus benar',
             'email.unique' => 'email sudah terdaftar',
@@ -112,7 +113,7 @@ class AuthController extends Controller
         if ($userLoginLog) {
             $userLoginLog->delete();
         }
-        
+
         UserLoginLog::create([
             "user_id" => Auth::id(),
             "login_time" => Carbon::now(),

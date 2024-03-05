@@ -114,14 +114,17 @@ class PostController extends Controller
   {
 
     $validator = Validator::make($request->all(), [
-      'judul' => 'required',
-      'deskripsi' => 'required',
-      'tag' => 'required',
+      'judul' => 'required|max:25',
+      'deskripsi' => 'required|max:120',
+      'tag' => 'required|max:20',
       'file' => 'required|mimes:png,jpg,jpeg|image|max:5000',
     ], [
       'judul.required' => 'kolom judul harus diisi',
+      'judul.max' =>  'kolom judul tidak boleh lebih dari 25 karakter',
       'deskripsi.required' => 'kolom deskripsi harus diisi',
+      'deskripsi.max' =>  'kolom deskripsi tidak boleh lebih dari 120 karakter',
       'tag.required' => 'kolom tag harus diisi',
+      'tag.max' =>  'kolom tag tidak boleh lebih dari 20 karakter',
       'file.required' => 'gambar harus diisi',
       'file.mimes' => 'extensi file harus png jpg jpeg',
       'file.max' =>   'gambar tidak boleh lebih dari 5 mb'
@@ -174,13 +177,17 @@ class PostController extends Controller
   public function update(Request $request, $id)
   {
     $validator = Validator::make($request->all(), [
-      'judul' => 'required',
-      'deskripsi' => 'required',
-      'tag' => 'required',
+      'judul' => 'required|max:25',
+      'deskripsi' => 'required|max:120',
+      'tag' => 'required|max:10',
     ], [
       'judul.required' => 'kolom judul harus diisi',
+      'judul.max' =>  'kolom judul tidak boleh lebih dari 25 karakter',
       'deskripsi.required' => 'kolom deskripsi harus diisi',
+      'deskripsi.max'=> 'kolom deskripsi tidak boleh lebih dari 120 karakter',
       'tag.required' => 'kolom tag harus diisi',
+      'tag.max'=> 'kolom tag tidak boleh lebih dari 120 karakter',
+      
     ]);
     if ($validator->fails()) {
       return response()->json([

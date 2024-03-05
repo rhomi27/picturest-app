@@ -43,7 +43,7 @@
                                     @if ($post->albums)
                                         <option value="{{ $post->albums->id }}" selected>{{ $post->albums->nama }}</option>
                                     @else
-                                        <option selected>Pilih album</option>
+                                        <option value="" selected>Pilih album</option>
                                     @endif
                                     @foreach ($album as $item)
                                         <option value="{{ $item->id }}">{{ $item->nama }}</option>
