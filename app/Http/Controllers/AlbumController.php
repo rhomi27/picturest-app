@@ -10,10 +10,10 @@ use Illuminate\Support\Facades\Validator;
 class AlbumController extends Controller
 {
     //
-    public function albumDetail($id)
+    public function albumDetail(Album $album)
     {
         $bg = "white";
-        $album = Album::find($id);
+        $album = Album::where('uuid', $album->uuid)->first();
         $title = "Detail Album | $album->nama";
         return view("page.album.detail-album", compact("album", "title", "bg"));
     }
@@ -44,12 +44,14 @@ class AlbumController extends Controller
     public function create(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'nama' => 'required',
-            'deskripsi' => 'required',
+            'nama' => 'required|max:25',
+            'deskripsi' => 'required|max:255',
             'wallpaper' => 'required|mimes:png,jpg,jpeg|image|max:5000',
         ], [
             'nama.required' => 'kolom nama harus diisi',
+            'nama.max' => 'kolom nama tidak boleh lebih dari 25 karakter',
             'deskripsi.required' => 'kolom deskripsi harus diisi',
+            'deskripsi.max' => 'kolom deskripsi tidak boleh lebih dari 255 karakter',
             'wallpaper.mimes' => 'extensi file harus png jpg jpeg',
             'wallpaper.required' => 'wallpaper harus diisi',
             'wallpaper.image'=> 'wallpaper harus berbentuk gambar',

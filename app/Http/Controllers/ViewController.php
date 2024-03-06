@@ -54,19 +54,19 @@ class ViewController extends Controller
         }
     }
 
-    public function detail($id)
+    public function detail(post $post)
     {
         $bg = "white";
-        $data = Post::find($id);
-        $user = User::where('id', $data->user_id)->first();
-        $like = Like::with(['users', 'posts'])->where('post_id', $id)->get();
-        $comen = Comment::with(['users', 'posts'])->where('post_id', $id)->get();
-        $postUser = Post::where('user_id', $user->id)->get();
+        $data = Post::with(['users','likes','comments'])->where('uuid',$post->uuid)->first();
+        // $user = User::where('id', $data->user_id)->first();
+        // $like = Like::with(['users', 'posts'])->where('post_id', $id)->get();
+        // $comen = Comment::with(['users', 'posts'])->where('post_id', $id)->get();
+        $postUser = Post::where('user_id', $data->users->id)->get();
         $title = "Picturest | Detail-$data->judul";
         $navTitle = "Detail Postingan";
         return view(
             "guest.detail-guest",
-            compact("bg", "title", "navTitle", "data", "user", "like", "comen", "postUser")
+            compact("bg", "title", "navTitle", "data", "postUser")
         );
     }
 

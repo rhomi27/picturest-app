@@ -1,5 +1,6 @@
 const userId = $('#follow-btn').data('user-id');
-var EndPoint = `/profil-user/${userId}`;
+const userUuid = $('#uuid').val();
+var EndPoint = `/profil-user/show=${userUuid}`;
 var page = 1;
 LoadMore(page);
 

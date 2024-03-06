@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('albums', function (Blueprint $table) {
             $table->id();
+            $table->uuid('uuid')->unique();
             $table->foreignId('user_id')->references('id')->on('users');
             $table->string('nama');
             $table->text('deskripsi');

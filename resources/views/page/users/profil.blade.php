@@ -8,12 +8,12 @@
         <div class="mx-auto w-screen bg-gray-50 drop-shadow-md">
             <div class="flex flex-col w-full h-full items-center">
                 <img class="w-40 h-40 rounded-full object-cover mt-10" src="pictures/{{ $user->pictures }}" alt="" />
-                <div class="items-center">
+                <div class="justify-center items-center">
 
                     <p class="text-sm text-center font-light text-gray-500">
                         {{ $user->nama_lengkap }}
                     </p>
-                    <div id="count-follow" class="flex gap-4 mb-5">
+                    <div id="count-follow" class="flex justify-center gap-4 mb-5">
 
                     </div>
                     <p class="text-sm text-center text-black mb-4">

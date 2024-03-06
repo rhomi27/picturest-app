@@ -15,7 +15,7 @@
 @endsection
 @push('scripts')
     <script>
-        var EndPoint = "/search-tamu";
+        var EndPoint = "/search";
         var page = 1;
         LoadMore(page);
 
@@ -36,8 +36,8 @@
                     }
                 })
                 .done(function(data) {
-                    if (data.length == 0) {
-                        $('.loader').html("no more");
+                    if (data.length <= 0) {
+                        $('.loader').html("tidak ada data lainnya");
                         return;
                     }
                     $('.loader').hide();

@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Like;
 use App\Models\User;
 use App\Models\Album;
+use Ramsey\Uuid\Uuid;
 use App\Models\Report;
 use App\Models\Comment;
 use Illuminate\Database\Eloquent\Model;
@@ -24,6 +25,12 @@ class Post extends Model
         'status',
     ] ;
 
+    protected static function boot(){
+        parent::boot();
+        static::creating(function($model){
+        $model->uuid = $model->uuid ?: Uuid::uuid4()->toString();
+       }); 
+    }
     public function users(){
         return $this->belongsTo(User::class,'user_id','id');
     }

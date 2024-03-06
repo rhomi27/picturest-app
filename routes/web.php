@@ -26,7 +26,7 @@ use App\Http\Controllers\CommentController;
 Route::middleware(['isTamu'])->group(function () {
     Route::get('/', [ViewController::class, 'index']);
     Route::get('/search', [ViewController::class, 'search'])->name('view.tamu');
-    Route::get('/detail-tamu/{id}', [ViewController::class, 'detail'])->name('detail.tamu');
+    Route::get('/posts-tamu/show={post:uuid}', [ViewController::class, 'detail'])->name('detail.tamu');
     Route::get('/comen-read-tamu/{id}', [CommentController::class, 'read']);
     Route::get('/search-tamu', [ViewController::class, 'searchImage'])->name('search.tamu');
     Route::get('/help-tamu', [InboxController::class, 'help'])->name('help.tamu');
@@ -41,28 +41,28 @@ Route::middleware(['isLogin', 'IsUser'])->group(function () {
     Route::get('/home', [PostController::class, 'index'])->name('view.post');
     Route::get('/mengikuti',[PostController::class,'mengikuti'])->name('mengikuti');
     Route::get('/albums', [AlbumController::class, 'index'])->name('view.album');
-    Route::get('/detail-album/{id}', [AlbumController::class, 'albumDetail'])->name('detail.album');
+    Route::get('/detail-album/show={album:uuid}', [AlbumController::class, 'albumDetail'])->name('detail.album');
     Route::get('/read-detail-album', [AlbumController::class, 'readDetail'])->name('read.detail.album');
     Route::get('/read-album', [AlbumController::class, 'read'])->name('read.album');
     Route::get('/read-album-user/{id}', [AlbumController::class, 'albumUser'])->name('read.album.user');
 
     Route::middleware('IsBanned')->group(function () {
         Route::get('/view-create', [PostController::class, 'create'])->middleware('IsBanned');
-        Route::get('/view-update/{id}', [PostController::class, 'show']);
+        Route::get('/update/show={post:uuid}', [PostController::class, 'show']);
         Route::get('/edit-album/{id}', [AlbumController::class, 'show']);
     });
 
     Route::get('/notifikasi', [ViewController::class, 'notif']);
     Route::get('/profil', [UserController::class, 'profil']);
-    Route::get('/detail/{id}', [PostController::class, 'detail'])->name('detail.post');
-    Route::get('/profil-user/{id}', [UserController::class, 'profilUser'])->name('profil.user');
+    Route::get('/posts/show={post:uuid}', [PostController::class, 'detail'])->name('detail.post');
+    Route::get('/profil-user/show={user:uuid}', [UserController::class, 'profilUser'])->name('profil.user');
     Route::get('/comen-read/{id}', [CommentController::class, 'read']);
     Route::get('/count-read/{id}', [UserController::class, 'read']);
     Route::get('/count-reading', [UserController::class, 'reading']);
     Route::get('/edit-user', [UserController::class, 'showEdit'])->name('show.edit');
     Route::get('/acount', [UserController::class, 'setAcount'])->name('sett.acount');
-    Route::get('/followers/{id}', [FollowController::class, 'followers'])->name('user.followers');
-    Route::get('/following/{id}', [FollowController::class, 'following'])->name('user.following');
+    Route::get('/followers/show={user:uuid}', [FollowController::class, 'followers'])->name('user.followers');
+    Route::get('/following/show={user:uuid}', [FollowController::class, 'following'])->name('user.following');
     Route::get('/count-notif', [ViewController::class, 'countNotif'])->name('count.notif');
 
     Route::get('/search-image', [PostController::class, 'searchImage'])->name('search.image');

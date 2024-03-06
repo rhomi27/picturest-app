@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Ramsey\Uuid\Uuid;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Album extends Model
 {
@@ -16,6 +17,12 @@ class Album extends Model
         'wallpaper',
     ] ;
 
+    protected static function boot(){
+        parent::boot();
+        static::creating(function($model){
+        $model->uuid = $model->uuid ?: Uuid::uuid4()->toString();
+       }); 
+    }
     
     public function users(){
         return $this->belongsTo(User::class);

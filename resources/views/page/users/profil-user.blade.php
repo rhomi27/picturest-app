@@ -4,6 +4,7 @@
     <!-- Main modal -->
 
     <section>
+        <input type="hidden" id="uuid" value="{{ $user->uuid }}">
         <div class="mx-auto w-screen bg-gray-50 drop-shadow-md">
             <div class="flex flex-col w-full h-full items-center">
                 <img class="w-40 h-40 rounded-full object-cover mt-10" src="{{ asset('pictures/' . $user->pictures) }}"

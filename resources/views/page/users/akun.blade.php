@@ -1,6 +1,6 @@
 @extends('layout.master')
 @section('content')
-    <div class="container mx-auto max-w-screen-md p-5">
+    <div data-aos="fade-down" class="container mx-auto max-w-screen-md p-5">
         <button type="button" onclick="goBack()"
             class="text-sm mb-5 bg-blue-600 text-white shadow-md rounded-full p-1 px-3 scale-100 hover:scale-95 transition-all duration-300">kembali</button>
         <div class="m-auto border border-gray-300 w-full h-full bg-white shadow-lg p-5">

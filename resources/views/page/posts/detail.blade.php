@@ -12,9 +12,7 @@
                 <div>
                     <div data-aos="fade-left" class="w-full max-h-full border border-gray-300 bg-white shadow-md p-4">
                         <div class="flex justify-between items-center">
-                            @if (auth()->check() && $data->users->id === auth()->id())
-                                <!-- Jika pengguna yang sedang login adalah pemiliknya -->
-                                <a href="/profil" class="flex items-center">
+                                <a class="flex items-center" href="/profil-user/show={{ $data->users->uuid }}">
                                     <img class="w-10 h-10 rounded-full object-cover mr-4"
                                         src="{{ asset('pictures/' . $data->users->pictures) }}" alt="Neil image" />
                                     <div class="flex flex-col">
@@ -26,20 +24,6 @@
                                         </p>
                                     </div>
                                 </a>
-                            @else
-                                <a class="flex items-center" href="/profil-user/{{ $data->users->id }}">
-                                    <img class="w-10 h-10 rounded-full object-cover mr-4"
-                                        src="{{ asset('pictures/' . $data->users->pictures) }}" alt="Neil image" />
-                                    <div class="flex flex-col">
-                                        <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
-                                            {{ $data->users->username }}
-                                        </p>
-                                        <p class="text-sm text-gray-500 truncate dark:text-gray-400">
-                                            {{ $data->users->email }}
-                                        </p>
-                                    </div>
-                                </a>
-                            @endif
                             @if (auth()->check() && $data->user_id !== auth()->id())
                                 <button class="scale-100 hover:scale-105" id="follow-btn"
                                     data-user-id="{{ $data->users->id }}"

@@ -89,11 +89,12 @@ class PostController extends Controller
     }
   }
 
-  public function detail($id)
+  public function detail(Post $post)
   {
+   
     try {
       $bg = "white";
-      $data = Post::with('comments', 'likes', 'users')->where('status', 'aktif')->find($id);
+      $data = Post::with('comments', 'likes', 'users')->where('status', 'aktif')->where('uuid',$post->uuid)->first();
       $postUser = Post::where('user_id', $data->users->id)->where('status', 'aktif')->get();
       $title = "Picturest | Detail-$data->judul";
       $navTitle = "Detail Postingan";
@@ -115,14 +116,14 @@ class PostController extends Controller
 
     $validator = Validator::make($request->all(), [
       'judul' => 'required|max:25',
-      'deskripsi' => 'required|max:120',
+      'deskripsi' => 'required|max:255',
       'tag' => 'required|max:20',
       'file' => 'required|mimes:png,jpg,jpeg|image|max:5000',
     ], [
       'judul.required' => 'kolom judul harus diisi',
       'judul.max' =>  'kolom judul tidak boleh lebih dari 25 karakter',
       'deskripsi.required' => 'kolom deskripsi harus diisi',
-      'deskripsi.max' =>  'kolom deskripsi tidak boleh lebih dari 120 karakter',
+      'deskripsi.max' =>  'kolom deskripsi tidak boleh lebih dari 255 karakter',
       'tag.required' => 'kolom tag harus diisi',
       'tag.max' =>  'kolom tag tidak boleh lebih dari 20 karakter',
       'file.required' => 'gambar harus diisi',
@@ -160,12 +161,12 @@ class PostController extends Controller
     }
   }
 
-  public function show($id)
+  public function show(Post $post)
   {
     $bg = "bg-white";
     $title = "Picturest | Update";
     $navTitle = "Edit Postingan";
-    $post = Post::with(['albums'])->where('status', 'aktif')->find($id);
+    $post = Post::with(['albums'])->where('status', 'aktif')->where('uuid',$post->uuid)->first();
     $album = Album::where("user_id", auth()->user()->id)->get();
     if ($post->user_id == auth()->id()) {
       return view("page.edit-post", compact("post", "album", "title", "bg", "navTitle"));
@@ -177,16 +178,16 @@ class PostController extends Controller
   public function update(Request $request, $id)
   {
     $validator = Validator::make($request->all(), [
-      'judul' => 'required|max:25',
-      'deskripsi' => 'required|max:120',
-      'tag' => 'required|max:10',
+      'judul' => 'required|max:30',
+      'deskripsi' => 'required|max:255',
+      'tag' => 'required|max:20',
     ], [
       'judul.required' => 'kolom judul harus diisi',
-      'judul.max' =>  'kolom judul tidak boleh lebih dari 25 karakter',
+      'judul.max' =>  'kolom judul tidak boleh lebih dari 30 karakter',
       'deskripsi.required' => 'kolom deskripsi harus diisi',
-      'deskripsi.max'=> 'kolom deskripsi tidak boleh lebih dari 120 karakter',
+      'deskripsi.max'=> 'kolom deskripsi tidak boleh lebih dari 255 karakter',
       'tag.required' => 'kolom tag harus diisi',
-      'tag.max'=> 'kolom tag tidak boleh lebih dari 120 karakter',
+      'tag.max'=> 'kolom tag tidak boleh lebih dari 20 karakter',
       
     ]);
     if ($validator->fails()) {

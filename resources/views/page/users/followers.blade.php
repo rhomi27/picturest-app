@@ -7,7 +7,7 @@
                 @if ($follower && !$follower->isEmpty())
                     @foreach ($follower as $item)
                         <div class="flex justify-between items-center mb-2 p-2 rounded-md bg-white hover:bg-gray-100">
-                            <a href="/profil-user/{{ $item->id }}" class="flex gap-2 items-center cursor-pointer">
+                            <a href="/profil-user/show={{ $item->uuid }}" class="flex gap-2 items-center cursor-pointer">
                                 <img class="w-8 h-8 rounded-full object-cover"
                                     src="{{ asset('pictures/' . $item->pictures) }}" alt="">
                                 <div class="flex flex-col items-start">

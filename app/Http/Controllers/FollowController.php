@@ -46,16 +46,16 @@ class FollowController extends Controller
         ]);
     }
 
-    public function followers($id){
-        $user = User::find($id);
+    public function followers(User $user){
+        $user = User::where('uuid', $user->uuid)->first();
         $follower = $user->followers()->get();
         $bg = "white";
         $title = "Picturest | Followers";
         return view("page.users.followers", compact("title","bg","follower","user"));
     }
 
-    public function following($id){
-        $user = User::find($id);
+    public function following(User $user){
+        $user = User::where('uuid', $user->uuid)->first();
         $following = $user->following()->get();
         $bg = "white";
         $title = "Picturest | Following";

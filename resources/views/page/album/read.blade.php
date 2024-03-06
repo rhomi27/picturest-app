@@ -2,7 +2,7 @@
     <div id="idalbum-{{ $item->id }}"
         class="flex flex-col rounded-md w-full h-full overflow-hidden drop-shadow-lg bg-white mb-3">
         <div class="flex w-full h-full overflow-hidden">
-            <a class="max-w-32 flex bg-black overflow-hidden" href="/detail-album/{{ $item->id }}">
+            <a class="max-w-32 flex bg-black overflow-hidden" href="/detail-album/show={{ $item->uuid }}">
                 <img class="h-full w-0-full transition-all duration-300 scale-100 hover:scale-105 object-contain"
                     src="{{ asset('Album/' . $item->wallpaper) }}" alt="" />
             </a>

@@ -31,20 +31,18 @@ class UserController extends Controller
         return view("page.users.data-user.count", compact("user", "follower", "following", "countPost"));
     }
 
-    public function profilUser(Request $request, $id)
+    public function profilUser(Request $request, User $user)
     {
 
-        if ($id == Auth::id()) {
+        if ($user->id == Auth::id()) {
             return redirect('/profil');
         }
         $bg = "white";
         $class = 'hidden';
         $p = 'p-2';
-        $user = User::find($id);
-        $follower = $user->followers()->get();
-        $following = $user->following()->get();
-        $post = Post::where('user_id', $id)->where('status', 'aktif')->latest()->paginate(12);
-        $countPost = Post::where('user_id', $id)->count();
+        $user = User::where('uuid', $user->uuid)->first();
+        $post = Post::where('user_id', $user->id)->where('status', 'aktif')->latest()->paginate(12);
+
         $title = "Profil | $user->username";
         $data = '';
         if ($request->ajax()) {
@@ -53,7 +51,7 @@ class UserController extends Controller
         }
         return view(
             "page.users.profil-user",
-            compact("bg", "title", "user", "post", "countPost", "class", "p", "follower", "following")
+            compact("bg", "title", "user", "post", "class", "p")
         );
     }
 
@@ -89,11 +87,15 @@ class UserController extends Controller
         $validator = Validator::make($request->all(), [
             'pictures' => 'mimes:png,jpg,jpeg|image|max:5000',
             'username' => 'required|max:20',
+            'nama_lengkap' => 'max:60',
+            'bio' => 'max:225',
         ], [
             'pictures.mimes' => 'extensi gambar harus png jpg jpeg',
-            'pictures.max'=> 'ukuran gambar tidak boleh lebih dari 5 mb',
+            'pictures.max' => 'ukuran gambar tidak boleh lebih dari 5 mb',
             'username.required' => 'username tidak boleh kosong',
             'username.max' => 'username tidak boleh lebih dari 20 karakter',
+            'nama_lengkap.max' => 'username tidak boleh lebih dari 60 karakter',
+            'bio.max' => 'username tidak boleh lebih dari 225 karakter',
         ]);
         if ($validator->fails()) {
             return response()->json([
@@ -131,7 +133,8 @@ class UserController extends Controller
         }
     }
 
-    public function hapusProfil(){
+    public function hapusProfil()
+    {
         $user = auth()->user();
         if ($user->pictures !== 'user.jpg') {
             File::delete(public_path('pictures/' . $user->pictures));
@@ -140,8 +143,8 @@ class UserController extends Controller
             'pictures' => 'user.jpg'
         ]);
         return response()->json([
-            'status'=> 200,
-            'message'=> 'Photo profil berhasil dihapus'
+            'status' => 200,
+            'message' => 'Photo profil berhasil dihapus'
         ]);
     }
 
@@ -151,7 +154,7 @@ class UserController extends Controller
         $bg = 'bg-white';
         $user = auth()->user();
         $aktivitas_log = UserLoginLog::where('user_id', $user->id)->get();
-        return view('page.users.akun', compact('user', 'title', 'bg','aktivitas_log'));
+        return view('page.users.akun', compact('user', 'title', 'bg', 'aktivitas_log'));
     }
 
     public function updateAcount(Request $request)
@@ -176,14 +179,14 @@ class UserController extends Controller
                 'status' => 400,
                 'errors' => $validator->errors(),
             ]);
-        } else { 
+        } else {
             $user = auth()->user();
             if (!Hash::check($request->old_password, $user->password)) {
                 return response()->json([
                     'status' => 422,
                     'message' => 'Gagal mengubah password.',
                     'errors' => ['old_password' => ['Password lama salah.']],
-                ]); 
+                ]);
             } else {
                 $user->update([
                     'password' => Hash::make($request->new_password),
@@ -196,12 +199,13 @@ class UserController extends Controller
         }
     }
 
-    public function deleteHistory(Request $request){
+    public function deleteHistory(Request $request)
+    {
         $ids = $request->ids;
         UserLoginLog::whereIn('id', $ids)->delete();
         return response()->json([
-            'status'=> 200,
-            'message'=> 'history login di bersihkan'
+            'status' => 200,
+            'message' => 'history login di bersihkan'
         ]);
     }
 }

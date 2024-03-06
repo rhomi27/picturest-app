@@ -68,6 +68,12 @@ $(document).ready(function() {
                 if (res.status === 400) {
                     showError('pictures', res.errors.pictures)
                     showError('username', res.errors.username)
+                    showError('nama_lengkap', res.errors.nama_lengkap)
+                    showError('bio', res.errors.bio)
+                    setTimeout(function() {
+                        $("#pictures-error, #username-error, #nama_lengkap-error, #bio-error")
+                            .empty();
+                    }, 3000);
                 } else if (res.status === 200) {
                     removeValidasiClass('#formEdit')
                     showMessage('success',res.message)

@@ -1,11 +1,11 @@
 @foreach ($post as $item)
     <figure id="posts-{{ $item->id }}" class="flex flex-col border drop-shadow-md overflow-hidden rounded-b-md">
-        <a class="overflow-hidden" href="/detail/{{ $item->id }}">
-            <img class="filter grayscale-0 hover:grayscale cursor-pointer transition-all duration-100 scale-100 hover:scale-105"
+        <a class="overflow-hidden" href="/posts/show={{ $item->uuid }}">
+            <img class="filter grayscale-0 hover:grayscale cursor-pointer scale-100 hover:scale-105 transition-all duration-300 "
                 src="{{ asset('imagePost/' . $item->file) }}" alt="" />
         </a>
         <div class="flex gap-2 bg-white p-1 bottom-0 h-10 justify-end w-full">
-            <a href="/view-update/{{ $item->id }}" class="flex items-center">
+            <a href="/update/show={{ $item->uuid }}" class="flex items-center">
                 <svg class="w-4 h-4 text-blue-700" xmlns="http://www.w3.org/2000/svg" fill="currentColor" id="Layer_1"
                     data-name="Layer 1" viewBox="0 0 24 24">
                     <path

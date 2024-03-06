@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Like;
 use App\Models\Post;
 use App\Models\Album;
+use Ramsey\Uuid\Uuid;
 use App\Models\Follow;
 use App\Models\Report;
 use App\Models\Comment;
@@ -24,6 +25,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        'uuid',
         'username',
         'alamat',
         'nama_lengkap',
@@ -36,6 +38,13 @@ class User extends Authenticatable
         'password',
     ];
 
+
+    protected static function boot(){
+        parent::boot();
+        static::creating(function($model){
+        $model->uuid = $model->uuid ?: Uuid::uuid4()->toString();
+       }); 
+    }
     /**
      * The attributes that should be hidden for serialization.
      *
