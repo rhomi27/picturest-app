@@ -34,7 +34,7 @@
                             </div>
                         </div>
                         <div class="mb-4">
-                            <h3 class="text-gray-700 font-semibold">Alsan pelapor:</h3>
+                            <h3 class="text-gray-700 font-semibold">Alasan pelapor:</h3>
                             <div class="flex flex-wrap">
                                 <span class="px-2 py-1 text-blue-800 rounded-full mr-2 mb-2">{{ $data->alasan }}</span>
                             </div>
